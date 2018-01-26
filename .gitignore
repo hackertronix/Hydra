@@ -37,6 +37,8 @@ bin/
 gen/
 out/
 build/
+release/
+key
 .gradle/
 .ART
 # Project files
