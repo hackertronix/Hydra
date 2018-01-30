@@ -48,9 +48,8 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
     private fun prepareSignin() {
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(R.string.default_web_client_id.toString())
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
-                .requestProfile()
                 .build()
 
         googleApiClient = GoogleApiClient.Builder(this)
@@ -93,6 +92,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success")
+                        Toast.makeText(this,"YAY",Toast.LENGTH_SHORT).show()
                         val user = mAuth!!.getCurrentUser()
                         startActivity(Intent(this,HomeActivity::class.java))
 
