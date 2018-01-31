@@ -6,13 +6,23 @@
     android:layout_height="match_parent"
     tools:context="io.execube.monotype.pantheonadmin.MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/sign_in_button"
+        style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:letterSpacing="0.35"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:text="SIGN IN"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.849" />
 
 </android.support.constraint.ConstraintLayout>
