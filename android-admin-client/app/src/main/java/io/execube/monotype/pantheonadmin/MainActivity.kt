@@ -1,7 +1,10 @@
 package io.execube.monotype.pantheonadmin
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -17,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener{
+
+class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var googleApiClient: GoogleApiClient? = null
     private var gso: GoogleSignInOptions? = null
     private var mAuth: FirebaseAuth? = null
@@ -31,11 +35,24 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
         prepareSignin()
 
+
         sign_in_button.setOnClickListener {
 
             signIn()
         }
     }
+
+    fun manipulateColor(color: Int, factor: Float): Int{
+        val a = Color.alpha(color)
+        val r = Math.round(Color.red(color) * factor)
+        val g = Math.round(Color.green(color) * factor)
+        val b = Math.round(Color.blue(color) * factor)
+        return Color.argb(a,
+                Math.min(r, 255),
+                Math.min(g, 255),
+                Math.min(b, 255))
+    }
+
 
 
     private fun signIn() {
