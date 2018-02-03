@@ -2,9 +2,7 @@ package io.execube.monotype.pantheonadmin
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -33,13 +31,21 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        prepareSignin()
+        checkIfAuthed()
 
+        prepareSignin()
 
         sign_in_button.setOnClickListener {
 
             signIn()
         }
+    }
+
+    private fun checkIfAuthed() {
+
+        val mAuth = FirebaseAuth.getInstance().currentUser
+        if(mAuth!=null)
+            startHomeActivity()
     }
 
     fun manipulateColor(color: Int, factor: Float): Int{
@@ -108,8 +114,8 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success")
                         Toast.makeText(this, "YAY", Toast.LENGTH_SHORT).show()
-                        val user = mAuth!!.getCurrentUser()
-                        startActivity(Intent(this, HomeActivity::class.java))
+
+                        startHomeActivity()
 
                     } else {
                         // If sign in fails, display a message to the user.
@@ -120,6 +126,10 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
                 })
 
+    }
+
+    private fun startHomeActivity() {
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
