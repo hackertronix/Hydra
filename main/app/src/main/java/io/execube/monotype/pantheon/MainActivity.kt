@@ -30,12 +30,21 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        checkIfSignedIn()
         prepareSignin()
 
         sign_in_button.setOnClickListener {
 
             signIn()
         }
+    }
+
+    private fun checkIfSignedIn() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if(user!= null)
+            startHomeActivity()
+        else
+            return
     }
 
 
@@ -93,8 +102,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success")
                         Toast.makeText(this,"YAY",Toast.LENGTH_SHORT).show()
-                        val user = mAuth!!.getCurrentUser()
-                        startActivity(Intent(this,HomeActivity::class.java))
+                        startHomeActivity()
 
                     } else {
                         // If sign in fails, display a message to the user.
@@ -105,6 +113,10 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
                 })
 
+    }
+
+    private fun startHomeActivity() {
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
