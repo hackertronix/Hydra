@@ -130,6 +130,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
     private fun startHomeActivity() {
         startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
