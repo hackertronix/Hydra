@@ -2,11 +2,16 @@
 <resources>
     <color name="colorPrimary">@color/white</color>
     <color name="colorPrimaryDark">@color/white</color>
-    <color name="colorAccent">#2962ff</color>
+    <color name="colorAccent">#002EFF</color>
     <color name="black">#000000</color>
     <color name="white">#FFF</color>
     <color name="darkGray">#777</color>
     <color name="gray">#808080</color>
     <color name="lightGray">#ccc</color>
     <color name="green">#4CAF50</color>
+    <color name="card_color_bluish">#2DC7E5</color>
+    <color name="card_color_yellowish">#BCCF27</color>
+    <color name="card_color_brownish">#C0AD86</color>
+    <color name="card_color_light_bluish">#BDD9FF</color>
+    <color name="statusBarColor">#e0e0e0</color>
 </resources>
