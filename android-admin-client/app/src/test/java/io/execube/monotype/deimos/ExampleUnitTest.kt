@@ -1,4 +1,4 @@
-package io.execube.monotype.pantheonadmin
+package io.execube.monotype.deimos
 
 import org.junit.Test
 

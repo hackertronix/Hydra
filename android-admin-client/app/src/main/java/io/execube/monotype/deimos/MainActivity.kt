@@ -1,4 +1,4 @@
-package io.execube.monotype.pantheonadmin
+package io.execube.monotype.deimos
 
 import android.content.Intent
 import android.graphics.Color

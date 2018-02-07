@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "io.execube.monotype.pantheonadmin"
+        applicationId "io.execube.monotype.deimos"
         minSdkVersion 22
         targetSdkVersion 27
         versionCode 1

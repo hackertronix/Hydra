@@ -1,4 +1,4 @@
-package io.execube.monotype.pantheonadmin
+package io.execube.monotype.deimos
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

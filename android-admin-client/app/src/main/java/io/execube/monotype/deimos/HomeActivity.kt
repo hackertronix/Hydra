@@ -1,4 +1,4 @@
-package io.execube.monotype.pantheonadmin
+package io.execube.monotype.deimos
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
