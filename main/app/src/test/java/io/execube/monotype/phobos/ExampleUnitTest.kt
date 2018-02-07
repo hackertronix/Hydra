@@ -1,4 +1,4 @@
-package io.execube.monotype.pantheon
+package io.execube.monotype.phobos
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package io.execube.monotype.pantheon
+package io.execube.monotype.phobos
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("io.execube.monotype.pantheon", appContext.packageName)
+        assertEquals("io.execube.monotype.phobos", appContext.packageName)
     }
 }

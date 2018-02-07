@@ -1,4 +1,4 @@
-package io.execube.monotype.pantheon
+package io.execube.monotype.phobos
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
