@@ -9,7 +9,7 @@
     android:layout_marginLeft="11dp"
     android:layout_marginRight="11dp"
     android:layout_height="wrap_content"
-    app:layoutManager="GridLayoutManager"
+    app:layoutManager="StaggeredGridLayoutManager"
     app:spanCount="2"
     tools:listitem="@layout/event_card_item"/>
 </android.support.constraint.ConstraintLayout>
