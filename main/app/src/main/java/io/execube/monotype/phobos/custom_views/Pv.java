@@ -37,12 +37,14 @@ public class Pv extends android.support.v7.widget.AppCompatTextView {
     public void configure() {
 
         GradientDrawable drawable = (GradientDrawable)getDrawable(getContext(),R.drawable.pill_button);
+        drawable.mutate();
         drawable.setColor(ContextCompat.getColor(getContext(),R.color.white));
+
         this.setAllCaps(true);
         this.setBackground(drawable);
         this.setTypeface(Typeface.create("null",Typeface.BOLD));
         this.setTextColor(getColor(getContext(),R.color.black));
-        this.setLetterSpacing(0.6f);
+        this.setLetterSpacing(0.2f);
 
     }
 }
