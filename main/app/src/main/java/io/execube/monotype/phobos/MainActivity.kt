@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
     private var mAuth: FirebaseAuth? = null
     private val RC_SIGN_IN: Int = 9001
     private val TAG ="TAG"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

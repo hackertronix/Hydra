@@ -50,13 +50,13 @@
            android:layout_marginTop="20dp"
            android:layout_marginBottom="16dp">
 
-           <TextView
+           <io.execube.monotype.phobos.custom_views.Pv
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="DANCE"
                android:textStyle="bold"
                android:textSize="8sp"
-               android:letterSpacing="0.3f"/>
+               android:letterSpacing="0.6"/>
 
        </LinearLayout>
 
