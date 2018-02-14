@@ -9,7 +9,7 @@
         android:layout_marginLeft="11dp"
         android:layout_marginRight="11dp"
         android:layout_height="wrap_content"
-        app:layoutManager="StaggeredGridLayoutManager"
+        app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/event_card_item"/>
 
