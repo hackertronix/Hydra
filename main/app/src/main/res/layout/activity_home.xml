@@ -7,30 +7,32 @@
     android:orientation="vertical"
     tools:context="io.execube.monotype.phobos.HomeActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:elevation="8dp"
-        android:layout_weight="1">
+   <android.support.design.widget.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <android.support.v7.widget.Toolbar
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:elevation="4dp"
+           android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textStyle="bold"
-            android:letterSpacing="0.29"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:textAllCaps="true"
-            android:textSize="18sp"/>
-    </android.support.v7.widget.Toolbar>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/app_name"
+               android:textStyle="bold"
+               android:letterSpacing="0.29"
+               android:layout_marginLeft="@dimen/activity_horizontal_margin"
+               android:textAllCaps="true"
+               android:textSize="18sp"/>
+       </android.support.v7.widget.Toolbar>
+   </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"/>
+        android:layout_weight="10"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -38,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
-        app:elevation="8dp"
+        app:elevation="16dp"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:menu="@menu/navigation" />
