@@ -4,28 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".AddEventActivity">
 
-    <android.support.v7.widget.Toolbar
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="8dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back_black_24dp"/>I
-
-        <TextView
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Add Event"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginLeft="32dp"/>
+            android:layout_height="?android:actionBarSize"
+            app:elevation="4dp">
 
-    </android.support.v7.widget.Toolbar>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:letterSpacing="0.29"
+                android:text="ADD EVENT"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
