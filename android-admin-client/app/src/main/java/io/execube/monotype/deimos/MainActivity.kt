@@ -105,9 +105,9 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
 
-        Log.d(TAG, "firebaseAuthWithGoogle:" + account?.getId())
+        Log.d(TAG, "firebaseAuthWithGoogle:" + account?.id)
 
-        val credential = GoogleAuthProvider.getCredential(account?.getIdToken(), null)
+        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
         mAuth?.signInWithCredential(credential)
                 ?.addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
                     if (task.isSuccessful) {

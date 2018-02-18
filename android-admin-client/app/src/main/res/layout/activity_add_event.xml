@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".AddEventActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -35,12 +35,31 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="50dp"
+        android:focusedByDefault="false"
+        android:hint="Event Name">
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Something" />
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="20dp"
+        android:focusedByDefault="false"
+        android:hint="Event Description">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
 
 

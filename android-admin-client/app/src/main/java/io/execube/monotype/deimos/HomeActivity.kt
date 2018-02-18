@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
     private fun animateToolbar() {
         val t = toolbar.getChildAt(0)
         if (t != null && t is TextView) {
-            val title = t as TextView
+            val title = t
 
             // fade in and space out the title.  Animating the letterSpacing performs horribly so
             // fake it by setting the desired letterSpacing then animating the scaleX
