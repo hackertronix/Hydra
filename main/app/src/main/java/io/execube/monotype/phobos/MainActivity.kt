@@ -1,11 +1,10 @@
 package io.execube.monotype.phobos
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
     private var gso: GoogleSignInOptions? = null
     private var mAuth: FirebaseAuth? = null
     private val RC_SIGN_IN: Int = 9001
-    private val TAG ="TAG"
+    private val TAG = "TAG"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
     private fun checkIfSignedIn() {
         val user = FirebaseAuth.getInstance().currentUser
-        if(user!= null)
+        if (user != null)
             startHomeActivity()
         else
             return
@@ -61,14 +60,13 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                 .build()
 
         googleApiClient = GoogleApiClient.Builder(this)
-                .enableAutoManage(this,this)
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso!!)
                 .build()
 
         mAuth = FirebaseAuth.getInstance()
 
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -100,7 +98,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success")
-                        Toast.makeText(this,"YAY",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "YAY", Toast.LENGTH_SHORT).show()
                         startHomeActivity()
 
                     } else {
@@ -121,6 +119,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
     override fun onConnectionFailed(p0: ConnectionResult) {
 
-        Log.d(TAG,"Signin Failed")
+        Log.d(TAG, "Signin Failed")
     }
 }
