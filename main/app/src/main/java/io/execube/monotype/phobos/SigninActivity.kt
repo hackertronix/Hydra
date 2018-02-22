@@ -1,5 +1,7 @@
 package io.execube.monotype.phobos
 
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -17,23 +19,27 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+class SigninActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var googleApiClient: GoogleApiClient? = null
     private var gso: GoogleSignInOptions? = null
     private var mAuth: FirebaseAuth? = null
     private val RC_SIGN_IN: Int = 9001
+    lateinit var viewModel: SigninViewModel
     private val TAG = "TAG"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        checkIfSignedIn()
-        prepareSignin()
+
+        viewModel = ViewModelProviders.of(this).get(SigninViewModel::class.java)
+
+        //TODO Change these to LiveData subsciption based triggers
+            //checkIfSignedIn()
+            //prepareSignin()
 
         sign_in_button.setOnClickListener {
-
-            signIn()
+            viewModel.authenticateUser()
         }
     }
 
