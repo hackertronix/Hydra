@@ -6,4 +6,21 @@
     <string name="navigation_map">Map</string>
     <string name="navigation_profile">Profile</string>
 
+
+    <string-array name="category_dropdown">
+        <item>Category</item>
+        <item>DANCE</item>
+        <item>MUSIC</item>
+        <item>RAMP</item>
+        <item>TECH</item>
+    </string-array>
+
+    <string-array name="venue_dropdown">
+        <item>Venue</item>
+        <item>MAIN STAGE</item>
+        <item>ECE Block</item>
+        <item>Admin Block</item>
+        <item>Mechanical Block</item>
+        <item>CS Block</item>
+    </string-array>
 </resources>
