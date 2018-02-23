@@ -4,25 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.execube.monotype.phobos.SigninActivity">
+    tools:context="io.execube.monotype.phobos.signin.SignInActivity">
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:background="@color/gray"/>
+        android:background="@color/white"/>
 
-    <io.execube.monotype.phobos.custom_views.Pv
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="GAMING"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/sign_in_button"

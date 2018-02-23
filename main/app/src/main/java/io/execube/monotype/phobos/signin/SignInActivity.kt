@@ -1,6 +1,6 @@
-package io.execube.monotype.phobos
+package io.execube.monotype.phobos.signin
 
-import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -17,14 +17,18 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import io.execube.monotype.phobos.HomeActivity
+import io.execube.monotype.phobos.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class SigninActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+class SignInActivity : AppCompatActivity(),
+        GoogleApiClient.OnConnectionFailedListener,
+        SignInNavigator {
     private var googleApiClient: GoogleApiClient? = null
     private var gso: GoogleSignInOptions? = null
     private var mAuth: FirebaseAuth? = null
     private val RC_SIGN_IN: Int = 9001
-    lateinit var viewModel: SigninViewModel
+    lateinit var viewModel: SignInViewModel
     private val TAG = "TAG"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,33 +36,31 @@ class SigninActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         setContentView(R.layout.activity_main)
 
 
-        viewModel = ViewModelProviders.of(this).get(SigninViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(SignInViewModel::class.java)
 
-        //TODO Change these to LiveData subsciption based triggers
-            //checkIfSignedIn()
-            //prepareSignin()
+        viewModel.isLoggedIn().observe(this, Observer {
+
+            if (!it.equals("null", true)) {
+                startHomeActivity()
+            }
+        })
+
+
 
         sign_in_button.setOnClickListener {
-            viewModel.authenticateUser()
+            signInWithGoogle()
         }
     }
 
-    private fun checkIfSignedIn() {
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null)
-            startHomeActivity()
-        else
-            return
-    }
 
-
-    private fun signIn() {
+    private fun signInWithGoogle() {
+        prepareSignIn()
         val intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
         startActivityForResult(intent, RC_SIGN_IN)
     }
 
 
-    private fun prepareSignin() {
+    private fun prepareSignIn() {
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -104,7 +106,7 @@ class SigninActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success")
-                        Toast.makeText(this, "YAY", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Welcome ${account?.displayName}!", Toast.LENGTH_SHORT).show()
                         startHomeActivity()
 
                     } else {
@@ -118,10 +120,11 @@ class SigninActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
     }
 
-    private fun startHomeActivity() {
+    override fun startHomeActivity() {
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }
+
 
     override fun onConnectionFailed(p0: ConnectionResult) {
 
