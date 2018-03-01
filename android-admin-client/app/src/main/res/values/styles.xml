@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ButtonStyle">
+    <style name="RoundButtonStyle">
         <item name="android:background">@drawable/pill_button</item>
         <item name="android:layout_marginRight">70dp</item>
         <item name="android:layout_marginLeft">70dp</item>
