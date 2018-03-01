@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:http="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -16,6 +16,18 @@
         <item name="android:layout_marginBottom">15dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EventCategoryPill">
+        <item name="android:background">@drawable/event_category_pill</item>
+        <item name="android:letterSpacing">0.35</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
     </style>
 
 </resources>

@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="pill_large_corner_radius">16dp</dimen>
+    <dimen name="pill_large_margin_left">16dp</dimen>
+    <dimen name="pill_large_margin_right">16dp</dimen>
+    <dimen name="pill_large_text_size">16sp</dimen>
+    <dimen name="pill_large_letter_spacing">0.2</dimen>
+
+    <dimen name="pill_small_corner_radius">16dp</dimen>
+    <dimen name="pill_small_margin_left">9dp</dimen>
+    <dimen name="pill_small_margin_right">9dp</dimen>
+    <dimen name="pill_small_text_size">8sp</dimen>
+    <dimen name="pill_small_letter_spacing">0.2</dimen>
+
 </resources>
