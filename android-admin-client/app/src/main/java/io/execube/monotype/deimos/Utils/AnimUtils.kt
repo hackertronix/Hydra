@@ -1,4 +1,4 @@
-package io.execube.monotype.deimos
+package io.execube.monotype.deimos.Utils
 
 import android.content.Context
 import android.view.animation.AnimationUtils

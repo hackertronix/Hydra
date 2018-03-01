@@ -1,12 +1,10 @@
 package io.execube.monotype.deimos
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_feed.*
 
 class HomeActivity : AppCompatActivity() {
 
