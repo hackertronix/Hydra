@@ -1,45 +1,129 @@
 package io.execube.monotype.deimos
 
+import android.app.TimePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import io.execube.monotype.deimos.model.Event
+import android.view.animation.AnimationUtils
+import android.widget.TextView
+import com.jakewharton.rxbinding2.widget.RxAdapterView
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.Observable
+import io.reactivex.Observable.combineLatest
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Function6
+import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_add_event.*
-import kotlinx.android.synthetic.main.fragment_feed.*
-import android.widget.DatePicker
-import android.app.DatePickerDialog
 import java.util.*
-import android.widget.TimePicker
-import android.app.TimePickerDialog
-
-
 
 
 class AddEventActivity : AppCompatActivity() {
+
+    lateinit var combinedObservable: Observable<Boolean>
+    lateinit var fieldObserver: Disposable
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_event)
 
 
-        setupDefaultState()
 
-        add_event_fab.setOnClickListener {
-            validate()
+        combinedObservable = combineLatest(
+                RxAdapterView.itemSelections(category_spinner),
+                RxAdapterView.itemSelections(venue_spinner),
+                RxAdapterView.itemSelections(event_day_spinner),
+                RxTextView.textChanges(select_time),
+                RxTextView.textChanges(event_name.editText as TextView).skip(1),
+                RxTextView.textChanges(event_description.editText as TextView).skip(1),
+
+
+                Function6 { eventCategory, eventVenue, eventDay, eventTime, eventName, eventDescription ->
+
+
+                    when {
+
+                        eventName.length in 1..3 -> {
+                            event_name.error = "Event Name must be at least 4 characters long. You are ${4 - eventName.length} characters short"
+
+                        }
+
+                        else -> event_name.isErrorEnabled = false
+                    }
+                    when {
+
+                        eventDescription.length in 1..19 -> {
+                            event_description.error = "Event Name must be at least 4 characters long. You are ${20 - eventDescription.length} characters short"
+
+                        }
+
+                        else -> event_description.isErrorEnabled = false
+                    }
+
+                    if (eventTime.contains("TAP TO SELECT TIME", true)) {
+
+                        select_time.setTextColor(Color.parseColor("#FF0000"))
+                        select_time.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.abc_popup_enter))
+                    }
+
+                    if (eventCategory == 0) {
+                        val textView = category_spinner.selectedView as? TextView
+                        textView?.error = ""
+                        textView?.text = "Event Category not selected"
+                    }
+
+                    if (eventVenue == 0) {
+
+                        val textView = venue_spinner.selectedView as? TextView
+                        textView?.error = ""
+                        textView?.text = "Event Venue not selected"
+                    }
+
+                    if (eventDay == 0) {
+
+                        val textView = event_day_spinner.selectedView as? TextView
+                        textView?.error = ""
+                        textView?.text = "Event Day not selected"
+                    }
+                    val isValid = !eventName.isEmpty() &&
+                            eventName.length > 4 &&
+                            !eventDescription.isEmpty() &&
+                            eventDescription.length > 20 &&
+                            eventCategory != 0 &&
+                            eventVenue != 0 &&
+                            eventDay != 0 &&
+                            !eventTime.contains("TAP TO SELECT TIME", true)
+
+                    return@Function6 isValid
+
+                })
+
+        fieldObserver = object : DisposableObserver<Boolean>() {
+
+            override fun onComplete() {
+
+            }
+
+            override fun onNext(value: Boolean?) {
+
+                toggleButton(value)
+
+
+            }
+
+            override fun onError(e: Throwable?) {
+            }
+
         }
 
 
-        select_date.setOnClickListener {
-
-            val calendar = Calendar.getInstance()
-            val mYear = calendar.get(Calendar.YEAR)
-            val mMonth = calendar.get(Calendar.MONTH)
-            val mDay = calendar.get(Calendar.DAY_OF_MONTH)
+        combinedObservable.subscribe(fieldObserver as DisposableObserver<Boolean>)
 
 
-            val datePickerDialog = DatePickerDialog(this,
-                    DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth -> select_date.text = "${dayOfMonth.toString()}-${monthOfYear + 1}-$year" }, mYear, mMonth, mDay)
-            datePickerDialog.show()
-        }
+
+
+
+
 
 
         select_time.setOnClickListener {
@@ -50,34 +134,26 @@ class AddEventActivity : AppCompatActivity() {
 
             // Launch Time Picker Dialog
             val timePickerDialog = TimePickerDialog(this,
-                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute -> select_time.text = """${hourOfDay.toString()}:$minute""" }, mHour, mMinute, false)
+                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute -> select_time.text = """${hourOfDay.toString()}:$minute""" }, mHour, mMinute, true)
             timePickerDialog.show()
         }
 
 
     }
 
-    private fun validate() {
-
-        //TODO add validation code
-
-        //event name should be atleast 8 characters
-        //event description should be atleast 140 characters
-        //event venue should not be the label venue
-        //event category should not be the label category
-
-        var eventName = event_name.editText?.text.toString().trim()
-        var eventDescription = event_description.editText.toString().trim()
-        var eventVenue = venue_spinner.selectedItemPosition
-        var eventCategory = category_spinner.selectedItemPosition
-
-
-
-
+    override fun onStop() {
+        super.onStop()
+        fieldObserver.dispose()
     }
 
-    private fun setupDefaultState() {
-        //By default the fab will be invisible and will be spawned only on completing all fields
 
+    private fun toggleButton(value: Boolean?) {
+        if (value == true) {
+
+
+            done_fab.show()
+
+        } else
+            done_fab.hide()
     }
 }
