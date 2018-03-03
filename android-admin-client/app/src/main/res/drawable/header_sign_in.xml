@@ -1,0 +1,52 @@
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="100dp"
+    android:viewportHeight="100"
+    android:viewportWidth="360">
+    <group
+        android:name="feed_slash_5"
+        android:rotation="174"
+        android:translateX="24.2276"
+        android:translateY="64.95261">
+        <path
+            android:fillColor="@color/fill_color"
+            android:pathData="M -24.5090026855,18.2695007324 c 0.0,0.0 2.17498779297,2.60299682617 2.17498779297,2.60299682617 c 0.0,0.0 46.8429870605,-39.141998291 46.8429870605,-39.141998291 c 0.0,0.0 -2.17398071289,-2.60299682617 -2.17398071289,-2.60299682617 c 0.0,0.0 -46.8439941406,39.141998291 -46.8439941406,39.141998291 Z" />
+    </group>
+    <group
+        android:name="feed_slash_4"
+        android:rotation="270"
+        android:translateX="104.4776"
+        android:translateY="64.95261">
+        <path
+            android:fillColor="@color/fill_color"
+            android:pathData="M -24.5090026855,18.2695007324 c 0.0,0.0 2.17498779297,2.60299682617 2.17498779297,2.60299682617 c 0.0,0.0 46.8429870605,-39.141998291 46.8429870605,-39.141998291 c 0.0,0.0 -2.17398071289,-2.60299682617 -2.17398071289,-2.60299682617 c 0.0,0.0 -46.8439941406,39.141998291 -46.8439941406,39.141998291 Z" />
+    </group>
+    <group
+        android:name="feed_slash_3"
+        android:rotation="174"
+        android:translateX="187.2276"
+        android:translateY="64.95261">
+        <path
+            android:fillColor="@color/fill_color"
+            android:pathData="M -24.5090026855,18.2695007324 c 0.0,0.0 2.17498779297,2.60299682617 2.17498779297,2.60299682617 c 0.0,0.0 46.8429870605,-39.141998291 46.8429870605,-39.141998291 c 0.0,0.0 -2.17398071289,-2.60299682617 -2.17398071289,-2.60299682617 c 0.0,0.0 -46.8439941406,39.141998291 -46.8439941406,39.141998291 Z" />
+    </group>
+    <group
+        android:name="feed_slash_2"
+        android:rotation="270"
+        android:translateX="267.7276"
+        android:translateY="64.95261">
+        <path
+            android:fillColor="@color/fill_color"
+            android:pathData="M -24.5090026855,18.2695007324 c 0.0,0.0 2.17498779297,2.60299682617 2.17498779297,2.60299682617 c 0.0,0.0 46.8429870605,-39.141998291 46.8429870605,-39.141998291 c 0.0,0.0 -2.17398071289,-2.60299682617 -2.17398071289,-2.60299682617 c 0.0,0.0 -46.8439941406,39.141998291 -46.8439941406,39.141998291 Z" />
+    </group>
+    <group
+        android:name="feed_slash_1"
+        android:rotation="174"
+        android:translateX="352.7276"
+        android:translateY="64.95261">
+        <path
+            android:fillColor="@color/fill_color"
+            android:pathData="M -24.5090026855,18.2695007324 c 0.0,0.0 2.17498779297,2.60299682617 2.17498779297,2.60299682617 c 0.0,0.0 46.8429870605,-39.141998291 46.8429870605,-39.141998291 c 0.0,0.0 -2.17398071289,-2.60299682617 -2.17398071289,-2.60299682617 c 0.0,0.0 -46.8439941406,39.141998291 -46.8439941406,39.141998291 Z" />
+    </group>
+</vector>
