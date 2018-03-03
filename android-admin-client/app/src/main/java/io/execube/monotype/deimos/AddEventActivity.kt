@@ -4,23 +4,31 @@ import android.app.TimePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxTextView
+import io.execube.monotype.deimos.model.Event
 import io.reactivex.Observable
 import io.reactivex.Observable.combineLatest
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Function6
 import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_add_event.*
+import kotlinx.android.synthetic.main.fragment_feed.*
 import java.util.*
 
 
 class AddEventActivity : AppCompatActivity() {
 
+    val EVENTS = "Events"
+
     lateinit var combinedObservable: Observable<Boolean>
     lateinit var fieldObserver: Disposable
+    var documentReference = FirebaseFirestore.getInstance().collection(EVENTS).document()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +38,12 @@ class AddEventActivity : AppCompatActivity() {
 
 
         combinedObservable = combineLatest(
-                RxAdapterView.itemSelections(category_spinner),
-                RxAdapterView.itemSelections(venue_spinner),
-                RxAdapterView.itemSelections(event_day_spinner),
+                RxAdapterView.itemSelections(category_spinner).skipInitialValue().distinctUntilChanged(),
+                RxAdapterView.itemSelections(venue_spinner).skipInitialValue().distinctUntilChanged(),
+                RxAdapterView.itemSelections(event_day_spinner).skipInitialValue().distinctUntilChanged(),
                 RxTextView.textChanges(select_time),
-                RxTextView.textChanges(event_name.editText as TextView).skip(1),
-                RxTextView.textChanges(event_description.editText as TextView).skip(1),
+                RxTextView.textChanges(event_name.editText as TextView),
+                RxTextView.textChanges(event_description.editText as TextView),
 
 
                 Function6 { eventCategory, eventVenue, eventDay, eventTime, eventName, eventDescription ->
@@ -98,6 +106,7 @@ class AddEventActivity : AppCompatActivity() {
 
                 })
 
+
         fieldObserver = object : DisposableObserver<Boolean>() {
 
             override fun onComplete() {
@@ -122,10 +131,6 @@ class AddEventActivity : AppCompatActivity() {
 
 
 
-
-
-
-
         select_time.setOnClickListener {
             // Get Current Time
             val c = Calendar.getInstance()
@@ -139,6 +144,25 @@ class AddEventActivity : AppCompatActivity() {
         }
 
 
+        done_fab.setOnClickListener {
+            saveEventToFirebase()
+        }
+
+    }
+
+    private fun saveEventToFirebase() {
+        val event = Event(
+                eventName = event_name.editText?.text.toString().trim(),
+                eventDescription = event_description.editText?.text.toString().trim(),
+                eventCategory = category_spinner.selectedItem.toString(),
+                eventVenue = venue_spinner.selectedItem.toString(),
+                eventDate = event_day_spinner.selectedItem.toString(),
+                eventTime = select_time.text.toString().trim()
+        )
+
+        documentReference.set(event)
+                .addOnCompleteListener { Toast.makeText(this, "Event Saved Successfully!", Toast.LENGTH_SHORT).show() }
+                .addOnFailureListener { Toast.makeText(this, "Failed to Save Event", Toast.LENGTH_SHORT).show() }
     }
 
     override fun onStop() {

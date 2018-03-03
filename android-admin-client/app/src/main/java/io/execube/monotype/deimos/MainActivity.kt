@@ -2,6 +2,7 @@ package io.execube.monotype.deimos
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.Animatable2
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -17,6 +18,18 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_main.*
+import android.support.v4.content.ContextCompat
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
+import android.support.graphics.drawable.Animatable2Compat
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat
+import android.view.View
+import android.widget.ImageView
+import java.security.AccessController.getContext
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+import android.view.Window
+import android.view.WindowManager
 
 
 class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
@@ -31,6 +44,9 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setFullscreenLayout()
+        animateHeader()
+
         checkIfAuthed()
 
         prepareSignin()
@@ -38,6 +54,46 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
         sign_in_button.setOnClickListener {
 
             signIn()
+        }
+    }
+
+     fun setFullscreenLayout() {
+         // window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+
+
+     }
+
+    private fun animateHeader() {
+        if (header is ImageView) {
+            val avdTop = AnimatedVectorDrawableCompat.create(
+                    applicationContext, R.drawable.avd_signin_header_top)
+
+            val avd=  AnimatedVectorDrawableCompat.create(
+                    applicationContext, R.drawable.avd_signin_header)
+
+            (header as ImageView).setImageDrawable(avdTop)
+            (header2 as ImageView).setImageDrawable(avd)
+            (header3 as ImageView).setImageDrawable(avd)
+            avdTop!!.start()
+            avd!!.start()
+
+
+            avd.registerAnimationCallback(object: Animatable2Compat.AnimationCallback() {
+                override fun onAnimationEnd(drawable: Drawable?) {
+                    super.onAnimationEnd(drawable)
+                    avd.start()
+                }
+            })
+
+            avdTop.registerAnimationCallback(object: Animatable2Compat.AnimationCallback() {
+                override fun onAnimationEnd(drawable: Drawable?) {
+                    super.onAnimationEnd(drawable)
+                    avdTop.start()
+                }
+            })
+
         }
     }
 

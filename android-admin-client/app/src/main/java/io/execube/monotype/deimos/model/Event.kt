@@ -4,4 +4,5 @@ data class Event(val eventName: String,
                  val eventDescription: String,
                  val eventCategory: String,
                  val eventVenue: String,
-                 val eventDate: Long)
+                 val eventDate: String,
+                 val eventTime: String   )
