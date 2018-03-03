@@ -8,11 +8,16 @@
 
 
     <string-array name="category_dropdown">
-        <item>Category</item>
+        <item>Select Category</item>
         <item>DANCE</item>
         <item>MUSIC</item>
         <item>RAMP</item>
         <item>TECH</item>
+    </string-array>
+    <string-array name="day_dropdown">
+        <item>Select Event Day</item>
+        <item>April 20</item>
+        <item>April 21</item>
     </string-array>
 
     <string-array name="venue_dropdown">

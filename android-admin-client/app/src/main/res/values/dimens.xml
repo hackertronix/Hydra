@@ -12,5 +12,6 @@
     <dimen name="pill_small_margin_right">9dp</dimen>
     <dimen name="pill_small_text_size">8sp</dimen>
     <dimen name="pill_small_letter_spacing">0.2</dimen>
+    <dimen name="spacing_large">32dp</dimen>
 
 </resources>

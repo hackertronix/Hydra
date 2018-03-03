@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:statusBarColor">@color/light_status_bar_against_toolbar</item>
     </style>
 
     <style name="BlueStatusbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
