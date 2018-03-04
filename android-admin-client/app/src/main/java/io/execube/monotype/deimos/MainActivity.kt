@@ -2,11 +2,16 @@ package io.execube.monotype.deimos
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.Animatable2
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.graphics.drawable.Animatable2Compat
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -18,18 +23,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_main.*
-import android.support.v4.content.ContextCompat
-import android.graphics.drawable.AnimatedVectorDrawable
-import android.graphics.drawable.Drawable
-import android.support.graphics.drawable.Animatable2Compat
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat
-import android.view.View
-import android.widget.ImageView
-import java.security.AccessController.getContext
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-import android.view.Window
-import android.view.WindowManager
 
 
 class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
@@ -53,24 +46,35 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
 
         sign_in_button.setOnClickListener {
 
+            toggleViews(true)
             signIn()
         }
     }
 
-     fun setFullscreenLayout() {
-         // window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    private fun toggleViews(isSigningIn: Boolean) {
+        if (isSigningIn) {
+            sign_in_progressbar.visibility = View.VISIBLE
+            sign_in_button.visibility = View.GONE
+        } else {
+            sign_in_progressbar.visibility = View.GONE
+            sign_in_button.visibility = View.VISIBLE
+        }
+
+    }
+
+    fun setFullscreenLayout() {
+        // window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
 
-
-     }
+    }
 
     private fun animateHeader() {
         if (header is ImageView) {
             val avdTop = AnimatedVectorDrawableCompat.create(
                     applicationContext, R.drawable.avd_signin_header_top)
 
-            val avd=  AnimatedVectorDrawableCompat.create(
+            val avd = AnimatedVectorDrawableCompat.create(
                     applicationContext, R.drawable.avd_signin_header)
 
             (header as ImageView).setImageDrawable(avdTop)
@@ -80,14 +84,14 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
             avd!!.start()
 
 
-            avd.registerAnimationCallback(object: Animatable2Compat.AnimationCallback() {
+            avd.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
                 override fun onAnimationEnd(drawable: Drawable?) {
                     super.onAnimationEnd(drawable)
                     avd.start()
                 }
             })
 
-            avdTop.registerAnimationCallback(object: Animatable2Compat.AnimationCallback() {
+            avdTop.registerAnimationCallback(object : Animatable2Compat.AnimationCallback() {
                 override fun onAnimationEnd(drawable: Drawable?) {
                     super.onAnimationEnd(drawable)
                     avdTop.start()
@@ -100,11 +104,11 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
     private fun checkIfAuthed() {
 
         val mAuth = FirebaseAuth.getInstance().currentUser
-        if(mAuth!=null)
+        if (mAuth != null)
             startHomeActivity()
     }
 
-    fun manipulateColor(color: Int, factor: Float): Int{
+    fun manipulateColor(color: Int, factor: Float): Int {
         val a = Color.alpha(color)
         val r = Math.round(Color.red(color) * factor)
         val g = Math.round(Color.green(color) * factor)
@@ -114,7 +118,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                 Math.min(g, 255),
                 Math.min(b, 255))
     }
-
 
 
     private fun signIn() {
@@ -155,6 +158,8 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                         .setMessage("There was an error while signing you in")
                         .setPositiveButton("GOT IT", { dialog, which -> finish() })
                         .show()
+
+                toggleViews(false)
             }
         }
     }
@@ -169,8 +174,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success")
-                        Toast.makeText(this, "YAY", Toast.LENGTH_SHORT).show()
-
                         startHomeActivity()
 
                     } else {
@@ -178,6 +181,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedList
                         Log.w(TAG, "signInWithCredential:failure", task.exception)
                         Toast.makeText(this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show()
+                        toggleViews(false)
                     }
 
                 })

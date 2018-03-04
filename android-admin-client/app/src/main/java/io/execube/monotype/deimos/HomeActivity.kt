@@ -2,6 +2,9 @@ package io.execube.monotype.deimos
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
+import android.support.v4.view.ViewCompat
+import android.view.View
 import android.widget.TextView
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import kotlinx.android.synthetic.main.activity_home.*
@@ -17,6 +20,8 @@ class HomeActivity : AppCompatActivity() {
 
 
     }
+
+
 
     private fun swapFragment() {
 

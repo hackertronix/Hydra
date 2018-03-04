@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -13,18 +16,18 @@
         app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/event_card_item" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_event_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <ImageButton
+        android:id="@+id/add_event"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/fab"
+        android:elevation="6dp"
         android:src="@drawable/ic_add_black_24dp"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorAccent"
-        app:elevation="4dp"
-        app:fabSize="normal"
+        android:stateListAnimator="@animator/raise"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:pressedTranslationZ="8dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>
