@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.ViewCompat
 import android.view.View
+import android.widget.BaseAdapter
 import android.widget.TextView
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import kotlinx.android.synthetic.main.activity_home.*
@@ -17,7 +18,6 @@ class HomeActivity : AppCompatActivity() {
 
         animateToolbar()
         swapFragment()
-
 
     }
 
