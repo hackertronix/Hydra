@@ -23,5 +23,12 @@
     <color name="card_color_brownish">#C0AD86</color>
     <color name="card_color_light_bluish">#BDD9FF</color>
     <color name="statusBarColor">#e0e0e0</color>
+    
+    
+    <!--Category colors-->
+    <color name="music">#BCCF27</color>
+    <color name="dance">#2DC7E5</color>
+    <color name="tech">#C0AD86</color>
+    <color name="gaming">#D1D6A6</color>
 
 </resources>
