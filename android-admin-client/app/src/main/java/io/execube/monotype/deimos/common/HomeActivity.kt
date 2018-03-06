@@ -1,13 +1,11 @@
-package io.execube.monotype.deimos
+package io.execube.monotype.deimos.common
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.view.ViewCompat
-import android.view.View
-import android.widget.BaseAdapter
 import android.widget.TextView
+import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
+import io.execube.monotype.deimos.event_feed.FeedFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {

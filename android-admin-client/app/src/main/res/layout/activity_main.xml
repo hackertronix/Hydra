@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/skin"
     android:fitsSystemWindows="true"
-    tools:context="io.execube.monotype.deimos.MainActivity">
+    tools:context="io.execube.monotype.deimos.sign_in.SignInActivity">
 
     <ImageView
         android:id="@+id/header"

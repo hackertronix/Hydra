@@ -1,16 +1,16 @@
-package io.execube.monotype.deimos
+package io.execube.monotype.deimos.add_event
 
 import android.app.TimePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxTextView
+import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.model.Event
 import io.reactivex.Observable
 import io.reactivex.Observable.combineLatest
@@ -18,13 +18,12 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Function6
 import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_add_event.*
-import kotlinx.android.synthetic.main.fragment_feed.*
 import java.util.*
 
 
 class AddEventActivity : AppCompatActivity() {
 
-    val EVENTS = "Events"
+    internal val EVENTS = "Events"
 
     lateinit var combinedObservable: Observable<Boolean>
     lateinit var fieldObserver: Disposable

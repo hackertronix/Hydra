@@ -1,4 +1,4 @@
-package io.execube.monotype.deimos
+package io.execube.monotype.deimos.event_feed
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

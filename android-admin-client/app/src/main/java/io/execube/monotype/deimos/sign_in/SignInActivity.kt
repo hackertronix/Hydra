@@ -1,7 +1,6 @@
-package io.execube.monotype.deimos
+package io.execube.monotype.deimos.sign_in
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.graphics.drawable.Animatable2Compat
@@ -22,10 +21,12 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import io.execube.monotype.deimos.common.HomeActivity
+import io.execube.monotype.deimos.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
+class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
     private var googleApiClient: GoogleApiClient? = null
     private var gso: GoogleSignInOptions? = null
     private var mAuth: FirebaseAuth? = null
