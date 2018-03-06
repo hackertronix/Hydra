@@ -1,8 +1,8 @@
 package io.execube.monotype.deimos.model
 
-data class Event(val eventName: String,
-                 val eventDescription: String,
-                 val eventCategory: String,
-                 val eventVenue: String,
-                 val eventDate: String,
-                 val eventTime: String   )
+data class Event(val eventName: String?=null,
+                 val eventDescription: String?=null,
+                 val eventCategory: String?=null,
+                 val eventVenue: String?=null,
+                 val eventDate: String?=null,
+                 val eventTime: String?=null   )
