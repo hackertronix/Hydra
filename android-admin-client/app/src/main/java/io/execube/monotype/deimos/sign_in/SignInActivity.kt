@@ -21,8 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import io.execube.monotype.deimos.common.HomeActivity
 import io.execube.monotype.deimos.R
+import io.execube.monotype.deimos.common.HomeActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -32,7 +32,6 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
     private var mAuth: FirebaseAuth? = null
     private val RC_SIGN_IN: Int = 9001
     private val TAG = "TAG"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +107,6 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         if (mAuth != null)
             startHomeActivity()
     }
-
 
 
     private fun signIn() {
