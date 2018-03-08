@@ -6,7 +6,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 
-class SignInViewModel(context: Application) : AndroidViewModel(context) {
+class assSignInViewModel(context: Application) : AndroidViewModel(context) {
 
 
     private var toastMessage: MutableLiveData<String> = MutableLiveData()
