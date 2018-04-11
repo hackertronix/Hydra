@@ -1,10 +1,10 @@
 package io.execube.monotype.deimos.model
 
-import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FirestoreLiveData : LiveData<List<Event>>() {
+class FirestoreLiveData : MutableLiveData<List<Event>>() {
 
 
     override fun onActive() {
