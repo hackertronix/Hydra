@@ -1,31 +1,35 @@
 <resources>
-    <string name="app_name">Pantheon Admin</string>
-    <string name="navigation_feed">Feed</string>
-    <string name="navigation_photos">Photos</string>
-    <string name="navigation_notifications">Notifications</string>
-    <string name="navigation_map">Map</string>
-    <string name="navigation_profile">Profile</string>
+  <string name="app_name">Pantheon Admin</string>
+  <string name="navigation_feed">Feed</string>
+  <string name="navigation_photos">Photos</string>
+  <string name="navigation_notifications">Notifications</string>
+  <string name="navigation_map">Map</string>
+  <string name="navigation_profile">Profile</string>
 
 
-    <string-array name="category_dropdown">
-        <item>Select Category</item>
-        <item>DANCE</item>
-        <item>MUSIC</item>
-        <item>RAMP</item>
-        <item>TECH</item>
-    </string-array>
-    <string-array name="day_dropdown">
-        <item>Select Event Day</item>
-        <item>April 20</item>
-        <item>April 21</item>
-    </string-array>
+  <string-array name="category_dropdown">
+    <item>Select Category</item>
+    <item>DANCE</item>
+    <item>MUSIC</item>
+    <item>RAMP</item>
+    <item>TECH</item>
+    <item>GAMING</item>>
+  </string-array>
+  <string-array name="day_dropdown">
+    <item>Select Event Day</item>
+    <item>April 20</item>
+    <item>April 21</item>
+  </string-array>
 
-    <string-array name="venue_dropdown">
-        <item>Venue</item>
-        <item>MAIN STAGE</item>
-        <item>ECE Block</item>
-        <item>Admin Block</item>
-        <item>Mechanical Block</item>
-        <item>CS Block</item>
-    </string-array>
+  <string-array name="venue_dropdown">
+    <item>Venue</item>
+    <item>MAIN STAGE</item>
+    <item>ECE Block</item>
+    <item>Admin Block</item>
+    <item>Mechanical Block</item>
+    <item>CS Block</item>
+  </string-array>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

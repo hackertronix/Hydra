@@ -14,5 +14,6 @@
     <dimen name="pill_small_letter_spacing">0.2</dimen>
     <dimen name="spacing_large">32dp</dimen>
     <dimen name="touch_raise">6dp</dimen>
+  <dimen name="divider_height">1px</dimen>
 
 </resources>
