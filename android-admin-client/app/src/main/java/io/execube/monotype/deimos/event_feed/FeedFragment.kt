@@ -5,61 +5,81 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.execube.monotype.deimos.add_event.AddEventActivity
+import android.view.animation.AnimationUtils
 import io.execube.monotype.deimos.R
+import io.execube.monotype.deimos.Utils.GridItemDividerDecoration
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
+import io.execube.monotype.deimos.add_event.AddEventActivity
 import io.execube.monotype.deimos.model.Event
-import kotlinx.android.synthetic.main.fragment_feed.*
-
+import kotlinx.android.synthetic.main.fragment_feed.add_event
+import kotlinx.android.synthetic.main.fragment_feed.events_feed
 
 class FeedFragment : Fragment() {
 
-     lateinit var events: List<Event>
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  lateinit var events: ArrayList<Event>
+  lateinit var adapter: FeedAdapter
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
 
-        return inflater.inflate(R.layout.fragment_feed, container, false)
+    val view = inflater.inflate(R.layout.fragment_feed, container, false)
+    events = ArrayList()
+    val feed = view.findViewById(R.id.events_feed) as RecyclerView
+    feed.layoutManager = GridLayoutManager(this.context, 2)
+    feed.itemAnimator = DefaultItemAnimator()
+    feed.addItemDecoration(GridItemDividerDecoration(this@FeedFragment.requireContext(),R.dimen.divider_height,R.color.divider))
+    adapter = FeedAdapter(events)
+    feed.adapter = adapter
+    return view
+  }
 
+
+  override fun onResume() {
+    super.onResume()
+
+    animateFab()
+    add_event.setOnClickListener {
+
+      startActivity(Intent(context, AddEventActivity::class.java))
 
     }
 
+    ViewModelProviders.of(this)
+        .get(FeedViewModel::class.java)
+        .getEvents()
+        .observe(this, Observer { data ->
+          if (data != null) {
+            adapter.swapData(data as ArrayList<Event>)
+            events_feed.layoutAnimation = AnimationUtils.loadLayoutAnimation(this.context,R.anim.recyclerview_animation)
+            events_feed.scheduleLayoutAnimation()
+          }
+        })
 
-    override fun onResume() {
-        super.onResume()
+  }
 
-        animateFab()
-        add_event.setOnClickListener {
+  private fun animateFab() {
 
-            startActivity(Intent(context, AddEventActivity::class.java))
-        }
-
-        ViewModelProviders.of(this).get(FeedViewModel::class.java)
-                .getEvents()
-                .observe(this, Observer {
-                    Log.d("YOYO",it.toString())
-                    events = it!!
-                })
-
-    }
-
-    private fun animateFab() {
-
-        add_event.alpha = 0f
-        add_event.scaleX = 0f
-        add_event.scaleY = 0f
-        add_event.translationY = add_event.getHeight() / 2f;
-        add_event.animate()
-                .alpha(1f)
-                .scaleX(1f)
-                .scaleY(1f)
-                .translationY(0f)
-                .setDuration(500L)
-                .setInterpolator(getLinearOutSlowInInterpolator(context!!))
-                .start()
-    }
-
+    add_event.alpha = 0f
+    add_event.scaleX = 0f
+    add_event.scaleY = 0f
+    add_event.translationY = add_event.getHeight() / 2f;
+    add_event.animate()
+        .alpha(1f)
+        .scaleX(1f)
+        .scaleY(1f)
+        .translationY(0f)
+        .setDuration(500L)
+        .setInterpolator(getLinearOutSlowInInterpolator(context!!))
+        .start()
+  }
 
 }

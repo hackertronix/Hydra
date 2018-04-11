@@ -7,7 +7,7 @@ import io.execube.monotype.deimos.model.FirestoreLiveData
 class FeedViewModel(app: Application) : AndroidViewModel(app) {
 
 
-    var firestoreLiveData = FirestoreLiveData()
+    var firestoreLiveData =  FirestoreLiveData()
 
     public fun getEvents(): FirestoreLiveData {
 
