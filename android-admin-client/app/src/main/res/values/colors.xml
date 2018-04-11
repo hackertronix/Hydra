@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/white</color>
-    <color name="colorPrimaryDark">@color/white</color>
-    <color name="immersive_status_bar">#33000000</color>
-    <color name="colorAccent">#002EFF</color>
-    <color name="black">#000000</color>
-    <color name="neon_blue">#00e4ff</color>
-    <color name="mocha">#53563E</color>
-    <color name="white">#FFF</color>
-    <color name="darkGray">#777</color>
-    <color name="sunflower_yellow">#ffd500</color>
-    <color name="skin">#F7EDBA</color>
-    <color name="fill_color">@color/white</color>
-    <color name="dat_blue">#0D0D2F</color>
-    <color name="light_status_bar_against_toolbar">#ffe8eaea</color>
-    <color name="background">#ffffffff</color>
-    <color name="gray">#808080</color>
-    <color name="lightGray">#ccc</color>
-    <color name="green">#4CAF50</color>
-    <color name="card_color_bluish">#2DC7E5</color>
-    <color name="card_color_yellowish">#BCCF27</color>
-    <color name="card_color_brownish">#C0AD86</color>
-    <color name="card_color_light_bluish">#BDD9FF</color>
-    <color name="statusBarColor">#e0e0e0</color>
-    
-    
-    <!--Category colors-->
-    <color name="music">#BCCF27</color>
-    <color name="dance">#2DC7E5</color>
-    <color name="tech">#C0AD86</color>
-    <color name="gaming">#D1D6A6</color>
+  <color name="colorPrimary">@color/white</color>
+  <color name="colorPrimaryDark">@color/white</color>
+  <color name="immersive_status_bar">#33000000</color>
+  <color name="colorAccent">#002EFF</color>
+  <color name="black">#000000</color>
+  <color name="neon_blue">#00e4ff</color>
+  <color name="mocha">#53563E</color>
+  <color name="white">#FFF</color>
+  <color name="darkGray">#777</color>
+  <color name="sunflower_yellow">#ffd500</color>
+  <color name="skin">#F7EDBA</color>
+  <color name="fill_color">@color/white</color>
+  <color name="dat_blue">#0D0D2F</color>
+  <color name="light_status_bar_against_toolbar">#ffe8eaea</color>
+  <color name="background">#ffffffff</color>
+  <color name="gray">#808080</color>
+  <color name="lightGray">#ccc</color>
+  <color name="green">#4CAF50</color>
+  <color name="card_color_bluish">#2DC7E5</color>
+  <color name="card_color_yellowish">#BCCF27</color>
+  <color name="card_color_brownish">#C0AD86</color>
+  <color name="card_color_light_bluish">#BDD9FF</color>
+  <color name="divider">#1f000000</color> <!-- 12% black -->
+  <color name="statusBarColor">#e0e0e0</color>
+
+  <!--AVD colors-->
+  <color name="dark_icon">#99ffffff</color> <!-- 60% black-->
+  <color name="dark_icon_half_alpha">#99ffffff</color> <!-- 30% black-->
+  <color name="dark_icon_on_primary">#ff2a6046</color> <!-- 60% black on @color/primary -->
+
+  <!--Category colors-->
+  <color name="music">#BCCF27</color>
+  <color name="dance">#2DC7E5</color>
+  <color name="tech">#C0AD86</color>
+  <color name="gaming">#D1D6A6</color>
+  <color name="error">#ffdd2c00</color>
+  <color name="light_icon">#fff</color>
 
 </resources>
