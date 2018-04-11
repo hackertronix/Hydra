@@ -19,7 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import io.execube.monotype.phobos.HomeActivity
 import io.execube.monotype.phobos.R
-import kotlinx.android.synthetic.main.activity_main.*
 
 class SignInActivity : AppCompatActivity(),
         GoogleApiClient.OnConnectionFailedListener,
