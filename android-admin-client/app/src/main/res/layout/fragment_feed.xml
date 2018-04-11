@@ -4,18 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
+  <!--Left right 11dp margin-->
+    <io.execube.monotype.deimos.Utils.GridRecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
-        app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/event_card_item" />
+        android:id="@+id/events_feed"
+        android:layout_height="match_parent"/>
 
     <ImageButton
         android:id="@+id/add_event"
