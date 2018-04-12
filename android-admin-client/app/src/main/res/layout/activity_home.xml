@@ -19,12 +19,12 @@
             app:elevation="4dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:letterSpacing="0.29"
+                android:gravity="center"
                 android:text="@string/app_name"
                 android:textAllCaps="true"
                 android:textSize="18sp"
