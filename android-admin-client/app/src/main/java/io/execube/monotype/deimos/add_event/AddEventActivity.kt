@@ -1,5 +1,6 @@
 package io.execube.monotype.deimos.add_event
 
+import android.app.Activity
 import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -169,6 +170,11 @@ class AddEventActivity : AppCompatActivity() {
 
   }
 
+  override fun onBackPressed() {
+    super.onBackPressed()
+    setResult(Activity.RESULT_CANCELED)
+  }
+
   private fun saveEventToFirebase() {
 
     done_fab.isActivated = false
@@ -178,6 +184,7 @@ class AddEventActivity : AppCompatActivity() {
       done_fab.setImageDrawable(uploadingAVD)
       uploadingAVD.start()
     }
+
 
 
 
