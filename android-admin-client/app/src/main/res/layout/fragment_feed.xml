@@ -7,6 +7,15 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+  <View
+      android:id="@+id/reveal_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/colorAccent"
+      android:translationZ="7dp"
+      android:visibility="invisible"
+      />
+
   <!--Left right 11dp margin-->
     <io.execube.monotype.deimos.Utils.GridRecyclerView
         android:layout_width="match_parent"

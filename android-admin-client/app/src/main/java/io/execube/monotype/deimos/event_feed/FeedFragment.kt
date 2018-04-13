@@ -1,5 +1,7 @@
 package io.execube.monotype.deimos.event_feed
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -11,13 +13,16 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.GridItemDividerDecoration
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import io.execube.monotype.deimos.add_event.AddEventActivity
+import io.execube.monotype.deimos.common.HomeActivity
 import io.execube.monotype.deimos.model.Event
+import kotlinx.android.synthetic.main.activity_main.reveal_view
 import kotlinx.android.synthetic.main.fragment_feed.add_event
 import kotlinx.android.synthetic.main.fragment_feed.events_feed
 
@@ -42,17 +47,8 @@ class FeedFragment : Fragment() {
     return view
   }
 
-
-  override fun onResume() {
-    super.onResume()
-
-    animateFab()
-    add_event.setOnClickListener {
-
-      startActivity(Intent(context, AddEventActivity::class.java))
-
-    }
-
+  override fun onStart() {
+    super.onStart()
     ViewModelProviders.of(this)
         .get(FeedViewModel::class.java)
         .getEvents()
@@ -63,8 +59,21 @@ class FeedFragment : Fragment() {
             events_feed.scheduleLayoutAnimation()
           }
         })
+  }
+
+  override fun onResume() {
+    super.onResume()
+    reveal_view.visibility = View.INVISIBLE
+    animateFab()
+    add_event.setOnClickListener {
+
+      (this.context as HomeActivity).doReveal(add_event.width/2.toFloat(),add_event.x,add_event.y)
+
+    }
+
 
   }
+
 
   private fun animateFab() {
 
