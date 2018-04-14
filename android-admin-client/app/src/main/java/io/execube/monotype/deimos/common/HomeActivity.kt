@@ -18,12 +18,15 @@ import com.google.firebase.auth.FirebaseAuth
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import io.execube.monotype.deimos.add_event.AddEventActivity
+import io.execube.monotype.deimos.event_details.EventDetailsActivity
 import io.execube.monotype.deimos.event_feed.FeedFragment
+import io.execube.monotype.deimos.model.Event
 import io.execube.monotype.deimos.photos.PhotosFragment
 import io.execube.monotype.deimos.sign_in.SignInActivity
 import kotlinx.android.synthetic.main.activity_home.home_reveal_view
 import kotlinx.android.synthetic.main.activity_home.navigation
 import kotlinx.android.synthetic.main.activity_home.toolbar
+import java.io.Serializable
 
 class HomeActivity : AppCompatActivity() {
 
@@ -134,6 +137,12 @@ class HomeActivity : AppCompatActivity() {
           .setDuration(900)
           .interpolator = getLinearOutSlowInInterpolator(this)
     }
+  }
+
+  fun showDetails(event: Event) {
+    val intent = Intent(this, EventDetailsActivity::class.java)
+    intent.putExtra("EVENT",event as Serializable)
+    startActivity(intent)
   }
 
 }

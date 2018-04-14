@@ -14,7 +14,7 @@
     <item name="android:windowContentOverlay">@null</item>
   </style>
 
-  <style name="AddEventActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="EventDetailsTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowTranslucentStatus">true</item>
     <item name="android:windowContentOverlay">@null</item>
   </style>
@@ -27,6 +27,18 @@
     <item name="android:layout_marginBottom">15dp</item>
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="FullscreenTheme" parent="AppTheme">
+    <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+    <item name="android:windowActionBarOverlay">true</item>
+    <item name="android:windowBackground">@null</item>
+    <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+    <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+  </style>
+
+  <style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">
+    <item name="android:background">@color/black_overlay</item>
   </style>
 
 </resources>

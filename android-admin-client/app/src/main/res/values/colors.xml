@@ -33,9 +33,11 @@
   <!--Category colors-->
   <color name="music">#BCCF27</color>
   <color name="dance">#2DC7E5</color>
-  <color name="tech">#C0AD86</color>
+  <color name="tech">#ffd500</color>
   <color name="gaming">#D1D6A6</color>
   <color name="error">#ffdd2c00</color>
   <color name="light_icon">#fff</color>
+
+  <color name="black_overlay">#66000000</color>
 
 </resources>
