@@ -80,8 +80,7 @@ class HomeActivity : AppCompatActivity() {
 
     revealAnimator.setDuration(450)
         .addListener(object : AnimatorListenerAdapter() {
-          
-          override fun onAnimationEnd(animation: Animator?) {
+           override fun onAnimationEnd(animation: Animator?) {
             super.onAnimationEnd(animation)
             startActivity(Intent(this@HomeActivity, AddEventActivity::class.java))
           }
