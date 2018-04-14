@@ -1,16 +1,19 @@
 package io.execube.monotype.deimos.event_feed
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.widget.color
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.EventDiff
 import io.execube.monotype.deimos.Utils.generateTextColor
+import io.execube.monotype.deimos.common.HomeActivity
 import io.execube.monotype.deimos.event_feed.FeedAdapter.FeedViewHolder
 import io.execube.monotype.deimos.model.Event
 import kotlinx.android.synthetic.main.event_card_item.view.event_card
@@ -73,7 +76,7 @@ class FeedAdapter(private var events: ArrayList<Event>) : RecyclerView.Adapter<F
           }
           "EVENT_CATEGORY" ->{
             holder.itemView.event_category.text = events[position].eventCategory
-            holder.setCardColor(events[position].eventCategory)
+            holder.setCardColor(events[position].eventColor)
           }
           else -> super.onBindViewHolder(holder, position, payloads)
          }
@@ -82,63 +85,37 @@ class FeedAdapter(private var events: ArrayList<Event>) : RecyclerView.Adapter<F
     }
   }
 
-  inner class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Divided {
+  inner class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Divided,OnClickListener {
+
+
+    override fun onClick(v: View?) {
+      (itemView.context as HomeActivity).showDetails(events[adapterPosition])
+    }
 
     lateinit var event: Event
     fun bind(event: Event) {
 
       this.event = event
 
-      setCardColor(event.eventCategory)
+      setCardColor(event.eventColor)
+      itemView.setOnClickListener(this)
       itemView.event_name.text = event.eventName
       itemView.event_description.text = event.eventDescription
-      itemView.event_category.text = event.eventCategory?.toUpperCase()
+      itemView.event_category.text = event.eventCategory.toUpperCase()
     }
 
-    fun setCardColor(eventCategory: String?) {
-      when {
-        eventCategory.equals("MUSIC") -> {
-          itemView.event_card.setCardBackgroundColor(
-              ContextCompat.getColor(itemView.context, R.color.music)
+    fun setCardColor(eventColor: String) {
+
+          val colorIntValue = Color.argb(Color.alpha(eventColor.toInt()),
+              Color.red(eventColor.toInt()),
+              Color.green(eventColor.toInt()),
+              Color.blue(eventColor.toInt())
           )
-          val textColor = generateTextColor(ContextCompat.getColor(itemView.context, R.color.music))
-          itemView.event_name.setTextColor(textColor)
-          itemView.event_description.setTextColor(textColor)
-        }
-        eventCategory.equals("DANCE") -> {
-          itemView.event_card.setCardBackgroundColor(
-              ContextCompat.getColor(itemView.context, R.color.dance)
-          )
-          val textColor = generateTextColor(ContextCompat.getColor(itemView.context, R.color.dance))
-          itemView.event_name.setTextColor(textColor)
-          itemView.event_description.setTextColor(textColor)
-        }
-        eventCategory.equals("TECH") -> {
-          itemView.event_card.setCardBackgroundColor(
-              ContextCompat.getColor(itemView.context, R.color.tech)
-          )
-          val textColor = generateTextColor(ContextCompat.getColor(itemView.context, R.color.tech))
-          itemView.event_name.setTextColor(textColor)
-          itemView.event_description.setTextColor(textColor)
-        }
-        eventCategory.equals("RAMP") -> {
-          itemView.event_card.setCardBackgroundColor(
-              ContextCompat.getColor(itemView.context, R.color.gaming)
-          )
-          val textColor = generateTextColor(ContextCompat.getColor(itemView.context, R.color.gaming))
-          itemView.event_name.setTextColor(textColor)
-          itemView.event_description.setTextColor(textColor)
-        }
-        eventCategory.equals("GAMING") -> {
-          itemView.event_card.setCardBackgroundColor(
-              ContextCompat.getColor(itemView.context, R.color.card_color_bluish)
-          )
-          val textColor = generateTextColor(ContextCompat.getColor(itemView.context, R.color.card_color_bluish))
+
+          itemView.event_card.setCardBackgroundColor(colorIntValue)
+          val textColor = generateTextColor(colorIntValue)
           itemView.event_name.setTextColor(textColor)
           itemView.event_description.setTextColor(textColor)
         }
       }
     }
-
-  }
-}

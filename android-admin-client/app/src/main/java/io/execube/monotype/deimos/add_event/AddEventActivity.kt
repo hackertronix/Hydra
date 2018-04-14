@@ -5,11 +5,11 @@ import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -170,8 +170,18 @@ class AddEventActivity : AppCompatActivity() {
 
 
     done_fab.setOnClickListener {
+     // toggleFields(false)
       saveEventToFirebase()
     }
+
+  }
+
+  private fun toggleFields(value: Boolean) {
+    event_name.isActivated =value
+    event_description.isActivated =value
+    event_day_spinner.isActivated =value
+    category_spinner.isActivated =value
+    venue_spinner.isActivated =value
 
   }
 
@@ -192,17 +202,19 @@ class AddEventActivity : AppCompatActivity() {
 
 
 
+    val eventColor = getEventColor(category_spinner.selectedItem.toString())
 
-    val event =Event(
+    val event = Event(
         eventId = documentReference.id,
         eventName = event_name.editText?.text.toString().trim(),
         eventDescription = event_description.editText?.text.toString().trim(),
         eventCategory = category_spinner.selectedItem.toString(),
+        eventColor = eventColor,
         eventVenue = venue_spinner.selectedItem.toString(),
         eventDate = event_day_spinner.selectedItem.toString(),
         eventTime = select_time.text.toString().trim()
-
     )
+
 
 
 
@@ -223,6 +235,7 @@ class AddEventActivity : AppCompatActivity() {
           }
         }
         .addOnFailureListener {
+          toggleFields(true)
           done_fab.isActivated = true
           val failed =
                   getDrawable(R.drawable.avd_upload_error) as AnimatedVectorDrawable?
@@ -233,6 +246,27 @@ class AddEventActivity : AppCompatActivity() {
               }
 
         }
+
+  private fun getEventColor(category: String): String {
+
+    var eventColor = ""
+    when{
+      category.equals("MAIN",false) -> {
+        eventColor = ContextCompat.getColor(this,R.color.dance).toString()
+      }
+      category.equals("TEACHER",false) -> {
+        eventColor = ContextCompat.getColor(this,R.color.music).toString()
+      }
+      category.equals("FLAGSHIP",false) -> {
+        eventColor = ContextCompat.getColor(this,R.color.gaming).toString()
+      }
+      category.equals("GENERAL",false) -> {
+        eventColor = ContextCompat.getColor(this,R.color.tech).toString()
+      }
+    }
+
+    return eventColor
+  }
 
   override fun onDestroy() {
     super.onDestroy()
