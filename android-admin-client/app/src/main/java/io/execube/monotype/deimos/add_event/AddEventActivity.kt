@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_add_event.event_description
 import kotlinx.android.synthetic.main.activity_add_event.event_name
 import kotlinx.android.synthetic.main.activity_add_event.select_time
 import kotlinx.android.synthetic.main.activity_add_event.venue_spinner
+import java.text.SimpleDateFormat
 import java.util.Calendar
 
 class AddEventActivity : AppCompatActivity() {
@@ -149,6 +150,7 @@ class AddEventActivity : AppCompatActivity() {
 
 
     select_time.setOnClickListener {
+
       // Get Current Time
       val c = Calendar.getInstance()
       val mHour = c.get(Calendar.HOUR_OF_DAY)
@@ -157,8 +159,11 @@ class AddEventActivity : AppCompatActivity() {
       // Launch Time Picker Dialog
       val timePickerDialog = TimePickerDialog(this,
           TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            select_time.text = """${hourOfDay.toString()}:$minute"""
-          }, mHour, mMinute, true
+            val simpleDateFormat =  SimpleDateFormat("hh:mm a")
+            c.set(Calendar.HOUR_OF_DAY,hourOfDay)
+            c.set(Calendar.MINUTE,minute)
+            select_time.text = simpleDateFormat.format(c.time)
+          }, mHour, mMinute, false
       )
       timePickerDialog.show()
     }
