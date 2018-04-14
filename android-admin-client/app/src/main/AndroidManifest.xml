@@ -20,8 +20,8 @@
     <activity android:name=".add_event.AddEventActivity"/>
 
     <activity android:name=".event_details.EventDetailsActivity"
-        android:theme="@style/EventDetailsTheme">
-    </activity>
+        android:theme="@style/EventDetailsTheme"/>
+
   </application>
 
 </manifest>

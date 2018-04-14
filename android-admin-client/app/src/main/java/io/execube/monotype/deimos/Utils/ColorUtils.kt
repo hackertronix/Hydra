@@ -2,9 +2,8 @@ package io.execube.monotype.deimos.Utils
 
 import android.graphics.Color
 
-fun generateTextColor(backgroundColor: Int): Int {
+fun generateDarkerColorShade(backgroundColor: Int, factor:Float = 0.5f): Int {
 
-  val factor = 0.5f
   val a = Color.alpha(backgroundColor)
   val r = Math.round(Color.red(backgroundColor) * factor)
   val g = Math.round(Color.green(backgroundColor) * factor)

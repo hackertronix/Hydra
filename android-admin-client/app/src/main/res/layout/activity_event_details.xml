@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/event_details_container"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:background="#CED1A3"
+    android:fitsSystemWindows="true"
     tools:context="io.execube.monotype.deimos.event_details.EventDetailsActivity"
     >
 
@@ -70,15 +69,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:layout_marginTop="49dp"
-        android:text="GAMING"
-        android:letterSpacing="0.3"
-        android:textSize="14sp"
         android:background="@drawable/pill_category"
+        android:letterSpacing="0.3"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:text="GAMING"
+        android:textSize="14sp"
         android:textStyle="bold"
         />
 
@@ -91,6 +90,7 @@
         >
 
       <ImageView
+          android:id="@+id/location_icon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:src="@drawable/ic_location_on_black_24dp"
@@ -117,6 +117,7 @@
         >
 
       <ImageView
+          android:id="@+id/time_icon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:src="@drawable/ic_access_time_black_24dp"
@@ -137,15 +138,15 @@
   </LinearLayout>
 
   <!--<android.support.design.widget.FloatingActionButton-->
-      <!--android:id="@+id/favourite_button"-->
-      <!--android:layout_width="wrap_content"-->
-      <!--android:layout_height="wrap_content"-->
-      <!--android:layout_marginBottom="16dp"-->
-      <!--android:layout_marginRight="16dp"-->
-      <!--android:src="@drawable/ic_favorite_border_black_24dp"-->
-      <!--app:backgroundTint="@color/white"-->
-      <!--app:fabSize="normal"-->
-      <!--app:layout_anchor="@id/linearLayout"-->
-      <!--app:layout_anchorGravity="right|bottom"-->
-      <!--/>-->
+  <!--android:id="@+id/favourite_button"-->
+  <!--android:layout_width="wrap_content"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--android:layout_marginBottom="16dp"-->
+  <!--android:layout_marginRight="16dp"-->
+  <!--android:src="@drawable/ic_favorite_border_black_24dp"-->
+  <!--app:backgroundTint="@color/white"-->
+  <!--app:fabSize="normal"-->
+  <!--app:layout_anchor="@id/linearLayout"-->
+  <!--app:layout_anchorGravity="right|bottom"-->
+  <!--/>-->
 </android.support.design.widget.CoordinatorLayout>

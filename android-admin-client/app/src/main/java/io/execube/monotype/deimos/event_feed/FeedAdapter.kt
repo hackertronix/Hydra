@@ -2,17 +2,15 @@ package io.execube.monotype.deimos.event_feed
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import com.jakewharton.rxbinding2.widget.color
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.EventDiff
-import io.execube.monotype.deimos.Utils.generateTextColor
+import io.execube.monotype.deimos.Utils.generateDarkerColorShade
 import io.execube.monotype.deimos.common.HomeActivity
 import io.execube.monotype.deimos.event_feed.FeedAdapter.FeedViewHolder
 import io.execube.monotype.deimos.model.Event
@@ -113,7 +111,7 @@ class FeedAdapter(private var events: ArrayList<Event>) : RecyclerView.Adapter<F
           )
 
           itemView.event_card.setCardBackgroundColor(colorIntValue)
-          val textColor = generateTextColor(colorIntValue)
+          val textColor = generateDarkerColorShade(colorIntValue)
           itemView.event_name.setTextColor(textColor)
           itemView.event_description.setTextColor(textColor)
         }
