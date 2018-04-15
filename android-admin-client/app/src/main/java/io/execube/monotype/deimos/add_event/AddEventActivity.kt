@@ -63,7 +63,7 @@ class AddEventActivity : AppCompatActivity() {
 
           when {
 
-            eventName.length in 1..3 || eventName.isEmpty() -> {
+            eventName.trim().length in 1..3 || eventName.isEmpty() -> {
               event_name.error =
                   "Event Name must be at least 4 characters long. You are ${4 - eventName.length} characters short"
 
@@ -73,9 +73,9 @@ class AddEventActivity : AppCompatActivity() {
           }
           when {
 
-            eventDescription.length in 1..19 || eventDescription.isEmpty() -> {
+            eventDescription.trim().length in 1..20 || eventDescription.isEmpty() -> {
               event_description.error =
-                  "Event Description must be at least 20 characters long. You are ${20 - eventDescription.length} characters short"
+                  "Event Description must be at least 20 characters long. You are ${22 - eventDescription.length} characters short"
 
             }
 
