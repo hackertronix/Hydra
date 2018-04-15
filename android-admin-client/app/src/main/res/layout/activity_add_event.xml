@@ -37,120 +37,120 @@
     </android.support.v7.widget.Toolbar>
   </android.support.design.widget.AppBarLayout>
 
-
-  <android.support.design.widget.TextInputLayout
-      android:id="@+id/event_name"
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="24dp"
-      android:focusedByDefault="false"
-      android:hint="Event Name"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="72dp"
+      android:layout_marginTop="72dp"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
       >
-
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-  </android.support.design.widget.TextInputLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+      <android.support.design.widget.TextInputLayout
+          android:id="@+id/event_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="24dp"
+          android:focusedByDefault="false"
+          android:hint="Event Name"
+          >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+      </android.support.design.widget.TextInputLayout>
 
 
-  <android.support.design.widget.TextInputLayout
-      android:id="@+id/event_description"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:focusedByDefault="false"
-      android:hint="Event Description"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/event_name"
-      >
+      <android.support.design.widget.TextInputLayout
+          android:id="@+id/event_description"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:focusedByDefault="false"
+          android:hint="Event Description"
+          >
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-  </android.support.design.widget.TextInputLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+      </android.support.design.widget.TextInputLayout>
 
 
-  <LinearLayout
-      android:id="@+id/linearLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:orientation="vertical"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/event_description"
-      >
+      <LinearLayout
+          android:id="@+id/linearLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:orientation="vertical"
+          >
 
-    <Spinner
+        <Spinner
 
-        android:id="@+id/venue_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:entries="@array/venue_dropdown"
-        android:prompt="@string/app_name"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        />
+            android:id="@+id/venue_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:entries="@array/venue_dropdown"
+            android:prompt="@string/app_name"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            />
 
 
-    <Spinner
+        <Spinner
 
-        android:id="@+id/category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:entries="@array/category_dropdown"
-        android:prompt="@string/app_name"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        />
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:entries="@array/category_dropdown"
+            android:prompt="@string/app_name"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            />
 
-    <Spinner
+        <Spinner
 
-        android:id="@+id/event_day_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:entries="@array/day_dropdown"
-        android:prompt="@string/app_name"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        />
+            android:id="@+id/event_day_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:entries="@array/day_dropdown"
+            android:prompt="@string/app_name"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            />
 
-  </LinearLayout>
+      </LinearLayout>
 
 
-  <TextView
-      android:id="@+id/select_time"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginStart="8dp"
-      android:text="TAP TO SELECT TIME"
-      android:textSize="24sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-      app:layout_constraintVertical_bias="0.2"
-      />
+      <TextView
+          android:id="@+id/select_time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginStart="8dp"
+          android:text="TAP TO SELECT TIME"
+          android:textSize="24sp"
+          android:textStyle="bold"
+          />
+    </LinearLayout>
+  </ScrollView>
 
   <ImageButton
       android:id="@+id/done_fab"
@@ -159,13 +159,17 @@
       android:layout_gravity="bottom|end"
       android:layout_marginBottom="16dp"
       android:layout_marginEnd="16dp"
+      android:layout_marginTop="8dp"
       android:background="@drawable/fab"
       android:elevation="6dp"
-      android:visibility="invisible"
       android:src="@drawable/ic_file_upload_black_24dp"
       android:stateListAnimator="@animator/raise"
+      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0"
+      />
 
 
 </android.support.constraint.ConstraintLayout>

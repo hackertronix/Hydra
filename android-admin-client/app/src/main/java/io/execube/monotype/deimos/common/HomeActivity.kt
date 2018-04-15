@@ -20,7 +20,7 @@ import io.execube.monotype.deimos.add_event.AddEventActivity
 import io.execube.monotype.deimos.event_details.EventDetailsActivity
 import io.execube.monotype.deimos.event_feed.FeedFragment
 import io.execube.monotype.deimos.model.Event
-import io.execube.monotype.deimos.photos.PhotosFragment
+import io.execube.monotype.deimos.photo_feed.PhotosFragment
 import io.execube.monotype.deimos.sign_in.SignInActivity
 import kotlinx.android.synthetic.main.activity_home.home_reveal_view
 import kotlinx.android.synthetic.main.activity_home.navigation
@@ -54,6 +54,8 @@ class HomeActivity : AppCompatActivity() {
       fragmentTransaction.commit()
       true
     }
+
+    navigation.setOnNavigationItemReselectedListener { return@setOnNavigationItemReselectedListener }
 
   }
 
