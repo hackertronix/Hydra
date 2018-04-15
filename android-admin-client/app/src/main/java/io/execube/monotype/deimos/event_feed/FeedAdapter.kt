@@ -87,7 +87,17 @@ class FeedAdapter(private var events: ArrayList<Event>) : RecyclerView.Adapter<F
 
 
     override fun onClick(v: View?) {
-      (itemView.context as HomeActivity).showDetails(events[adapterPosition])
+
+     /* val intent = Intent(itemView.context as HomeActivity,EventDetailsActivity::class.java)
+      ReflowText.addExtras(intent,ReflowableTextView(itemView.event_name))
+      ReflowText.addExtras(intent,ReflowableTextView(itemView.event_description))
+      val pair1:Pair<View,String> = Pair.create(itemView.event_card,"eventBackground")
+      val pair2:Pair<View,String> = Pair.create(itemView.event_card,"eventName")
+      val pair3:Pair<View,String> = Pair.create(itemView.event_card,"eventDescription")
+      val activityOptions = ActivityOptions.makeSceneTransitionAnimation(itemView.context as HomeActivity,pair1)
+*/
+
+     (itemView.context as HomeActivity).showDetails(events[adapterPosition])
     }
 
     lateinit var event: Event
@@ -95,11 +105,11 @@ class FeedAdapter(private var events: ArrayList<Event>) : RecyclerView.Adapter<F
 
       this.event = event
 
-      setCardColor(event.eventColor)
+      setCardColor(this.event.eventColor)
       itemView.setOnClickListener(this)
-      itemView.event_name.text = event.eventName
-      itemView.event_description.text = event.eventDescription
-      itemView.event_category.text = event.eventCategory.toUpperCase()
+      itemView.event_name.text = this.event.eventName
+      itemView.event_description.text = this.event.eventDescription
+      itemView.event_category.text = this.event.eventCategory.toUpperCase()
     }
 
     fun setCardColor(eventColor: String) {

@@ -61,6 +61,11 @@ class FeedFragment : Fragment() {
 
   }
 
+  override fun onPause() {
+    super.onPause()
+    add_event.visibility = View.INVISIBLE
+  }
+
   override fun onResume() {
     super.onResume()
     reveal_view.visibility = View.INVISIBLE
@@ -77,6 +82,7 @@ class FeedFragment : Fragment() {
 
   private fun animateFab() {
 
+    add_event.visibility = View.VISIBLE
     add_event.alpha = 0f
     add_event.scaleX = 0f
     add_event.scaleY = 0f
