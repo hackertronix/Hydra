@@ -22,11 +22,19 @@
 
   <string-array name="venue_dropdown">
     <item>Venue</item>
-    <item>MAIN STAGE</item>
-    <item>ECE Block</item>
-    <item>Admin Block</item>
-    <item>Mechanical Block</item>
-    <item>CS Block</item>
+    <item>Main Stage</item>
+    <item>Quadrangle</item>
+    <item>CSE Lab</item>
+    <item>EC Lab</item>
+    <item>Edusat Hall</item>
+    <item>PU Ground</item>
+    <item>Maggie Station</item>
+    <item>CSE Ground</item>
+    <item>EEE Class Room</item>
+    <item>Admin Seminar hall</item>
+    <item>School Ground</item>
+    <item>Basketball Court</item>
+    <item>ISE lab</item>
   </string-array>
 
   <!-- TODO: Remove or change this placeholder text -->

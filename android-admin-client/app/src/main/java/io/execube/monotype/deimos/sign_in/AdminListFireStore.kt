@@ -1,26 +1,27 @@
-package io.execube.monotype.deimos.model
+package io.execube.monotype.deimos.sign_in
 
 import android.arch.lifecycle.MutableLiveData
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import io.execube.monotype.deimos.model.Admin
 
-class FirestoreLiveData : MutableLiveData<List<Event>>() {
+class AdminListFireStore : MutableLiveData<List<Admin>>() {
 
   override fun onActive() {
     super.onActive()
 
 
     FirebaseFirestore.getInstance()
-        .collection("Events")
+        .collection("Admins")
         .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
           if (firebaseFirestoreException == null) {
-            var events: ArrayList<Event> = ArrayList()
+            var admins: ArrayList<Admin> = ArrayList()
             for (doc: DocumentSnapshot in querySnapshot) {
-              var event = doc.toObject(Event::class.java)
-              events.add(event)
+              var admin = doc.toObject(Admin::class.java)
+              admins.add(admin)
             }
-            value = events
+            value = admins
           }
         }
   }

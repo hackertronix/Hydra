@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_home)
-
+    checkIfAuthed()
     setSupportActionBar(toolbar)
     animateToolbar()
     swapFragment()
@@ -55,6 +55,15 @@ class HomeActivity : AppCompatActivity() {
       true
     }
 
+  }
+
+  private fun checkIfAuthed() {
+    val user = FirebaseAuth.getInstance().currentUser
+    if(user == null)
+    {
+      startActivity(Intent(this@HomeActivity,SignInActivity::class.java))
+      finish()
+    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {

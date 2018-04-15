@@ -208,22 +208,49 @@ class AddEventActivity : AppCompatActivity() {
     }
 
     when {
-      event.eventVenue.equals("MAIN STAGE") -> {
+      event.eventVenue.equals("Main Stage") -> {
         venue_spinner.setSelection(1)
 
       }
-      event.eventVenue.equals("ECE Block") -> {
+      event.eventVenue.equals("Quadrangle") -> {
         venue_spinner.setSelection(2)
+
       }
-      event.eventVenue.equals("Admin Block") -> {
+      event.eventVenue.equals("CSE Lab") -> {
         venue_spinner.setSelection(3)
+
       }
-      event.eventVenue.equals("Mechanical Block") -> {
+      event.eventVenue.equals("EC Lab") -> {
         venue_spinner.setSelection(4)
       }
-
-      event.eventVenue.equals("CS Block") -> {
+      event.eventVenue.equals("Edusat Hall") -> {
         venue_spinner.setSelection(5)
+      }
+      event.eventVenue.equals("PU Ground") -> {
+        venue_spinner.setSelection(6)
+      }
+
+      event.eventVenue.equals("Maggie Station") -> {
+        venue_spinner.setSelection(7)
+      }
+      event.eventVenue.equals("CSE Ground") -> {
+        venue_spinner.setSelection(8)
+
+      }
+      event.eventVenue.equals("EEE Class Room") -> {
+        venue_spinner.setSelection(9)
+      }
+      event.eventVenue.equals("Admin Seminar Hall") -> {
+        venue_spinner.setSelection(10)
+      }
+      event.eventVenue.equals("School Ground") -> {
+        venue_spinner.setSelection(11)
+      }
+      event.eventVenue.equals("Basketball Court") -> {
+        venue_spinner.setSelection(12)
+      }
+      event.eventVenue.equals("ISE Lab") -> {
+        venue_spinner.setSelection(13)
       }
     }
 

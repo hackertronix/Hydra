@@ -2,6 +2,8 @@ package io.execube.monotype.deimos.sign_in
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -26,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.common.HomeActivity
+import io.execube.monotype.deimos.model.Admin
 import kotlinx.android.synthetic.main.activity_main.header
 import kotlinx.android.synthetic.main.activity_main.header2
 import kotlinx.android.synthetic.main.activity_main.header3
@@ -38,17 +41,17 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
   private var gso: GoogleSignInOptions? = null
   private var mAuth: FirebaseAuth? = null
   private val RC_SIGN_IN: Int = 9001
+  lateinit var signinViewModel: SigninViewModel
   private val TAG = "TAG"
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
+    signinViewModel = ViewModelProviders.of(this)
+        .get(SigninViewModel::class.java)
     setFullscreenLayout()
     animateHeader()
-
-    checkIfAuthed()
-
     prepareSignin()
 
     sign_in_button.setOnClickListener {
@@ -109,14 +112,6 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
     }
   }
 
-  private fun checkIfAuthed() {
-
-    val mAuth = FirebaseAuth.getInstance()
-        .currentUser
-    if (mAuth != null)
-      startHomeActivity()
-  }
-
   private fun signIn() {
     val intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
     startActivityForResult(intent, RC_SIGN_IN)
@@ -171,9 +166,19 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
     mAuth?.signInWithCredential(credential)
         ?.addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
           if (task.isSuccessful) {
+
+            val currentUser = Admin(task.result.user.email.toString())
             // Sign in success, update UI with the signed-in user's information
             Log.d(TAG, "signInWithCredential:success")
-            doReveal()
+            signinViewModel.getEvents()
+                .observe(this, Observer { adminsList ->
+                  if (adminsList != null && adminsList.contains(currentUser)) {
+                    doReveal()
+                  } else {
+                   showError()
+                  }
+                })
+
           } else {
             // If sign in fails, display a message to the user.
             Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -187,6 +192,21 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
         })
 
+  }
+
+  private fun showError() {
+    AlertDialog.Builder(this)
+        .setTitle("Whoa there chief!")
+        .setMessage(
+            "This app is only for the event management team. You are unauthorized to log in"
+        )
+        .setPositiveButton("OK", { dialog, _ ->
+          FirebaseAuth.getInstance().signOut()
+          sign_in_progressbar.visibility =View.INVISIBLE
+          sign_in_button.visibility = View.VISIBLE
+          dialog.dismiss()
+        })
+        .show()
   }
 
   private fun startHomeActivity() {
