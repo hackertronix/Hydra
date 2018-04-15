@@ -1,20 +1,25 @@
 package io.execube.monotype.deimos.add_event
 
-import android.app.Activity
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.TextView.BufferType.EDITABLE
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Transaction
 import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
+import io.execube.monotype.deimos.common.HomeActivity
 import io.execube.monotype.deimos.model.Event
 import io.reactivex.Observable
 import io.reactivex.Observable.combineLatest
@@ -34,9 +39,10 @@ import java.util.Calendar
 class AddEventActivity : AppCompatActivity() {
 
   internal val EVENTS = "Events"
-
   lateinit var combinedObservable: Observable<Boolean>
   lateinit var fieldObserver: Disposable
+  var collectionReference = FirebaseFirestore.getInstance()
+      .collection(EVENTS)
   var documentReference = FirebaseFirestore.getInstance()
       .collection(EVENTS)
       .document()
@@ -44,9 +50,7 @@ class AddEventActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_add_event)
-
-
-
+    checkIfDataWasPassed()
     combinedObservable = combineLatest(
         RxAdapterView.itemSelections(category_spinner).skipInitialValue().distinctUntilChanged(),
         RxAdapterView.itemSelections(venue_spinner).skipInitialValue().distinctUntilChanged(),
@@ -114,14 +118,10 @@ class AddEventActivity : AppCompatActivity() {
               eventDay != 0 &&
               !eventTime.contains("TAP TO SELECT TIME", true)
           ) {
-            return@Function6  true
-          }
-          else
-          {
+            return@Function6 true
+          } else {
             return@Function6 false
           }
-
-
 
         })
 
@@ -157,11 +157,12 @@ class AddEventActivity : AppCompatActivity() {
       val mMinute = c.get(Calendar.MINUTE)
 
       // Launch Time Picker Dialog
-      val timePickerDialog = TimePickerDialog(this,
+      val timePickerDialog = TimePickerDialog(
+          this,
           TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            val simpleDateFormat =  SimpleDateFormat("hh:mm a")
-            c.set(Calendar.HOUR_OF_DAY,hourOfDay)
-            c.set(Calendar.MINUTE,minute)
+            val simpleDateFormat = SimpleDateFormat("hh:mm a")
+            c.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            c.set(Calendar.MINUTE, minute)
             select_time.text = simpleDateFormat.format(c.time)
           }, mHour, mMinute, false
       )
@@ -170,98 +171,244 @@ class AddEventActivity : AppCompatActivity() {
 
 
     done_fab.setOnClickListener {
-     // toggleFields(false)
-      saveEventToFirebase()
+      val eventExists = intent.hasExtra("EVENT_EDIT")
+      saveEventToFirebase(eventExists)
     }
 
   }
 
+  private fun checkIfDataWasPassed() {
+    if (this.intent.hasExtra("EVENT_EDIT")) {
+      setupEventData()
+    }
+  }
+
+  private fun setupEventData() {
+
+    toggleButton(true)
+    val event = intent.extras.get("EVENT_EDIT") as Event
+    event_name.editText?.setText(event.eventName, EDITABLE)
+    event_description.editText?.setText(event.eventDescription, EDITABLE)
+    select_time.text = event.eventTime
+
+    when {
+      event.eventCategory.equals("MAIN") -> {
+        category_spinner.setSelection(1)
+
+      }
+      event.eventCategory.equals("GENERAL") -> {
+        category_spinner.setSelection(2)
+      }
+      event.eventCategory.equals("FLAGSHIP") -> {
+        category_spinner.setSelection(3)
+      }
+      event.eventCategory.equals("TEACHER") -> {
+        category_spinner.setSelection(4)
+      }
+    }
+
+    when {
+      event.eventVenue.equals("MAIN STAGE") -> {
+        venue_spinner.setSelection(1)
+
+      }
+      event.eventVenue.equals("ECE Block") -> {
+        venue_spinner.setSelection(2)
+      }
+      event.eventVenue.equals("Admin Block") -> {
+        venue_spinner.setSelection(3)
+      }
+      event.eventVenue.equals("Mechanical Block") -> {
+        venue_spinner.setSelection(4)
+      }
+
+      event.eventVenue.equals("CS Block") -> {
+        venue_spinner.setSelection(5)
+      }
+    }
+
+    when {
+      event.eventDate.equals("April 20") -> {
+        event_day_spinner.setSelection(1)
+
+      }
+      event.eventDate.equals("April 21") -> {
+        event_day_spinner.setSelection(2)
+      }
+
+    }
+  }
+
   private fun toggleFields(value: Boolean) {
-    event_name.isActivated =value
-    event_description.isActivated =value
-    event_day_spinner.isActivated =value
-    category_spinner.isActivated =value
-    venue_spinner.isActivated =value
+    event_name.isActivated = value
+    event_description.isActivated = value
+    event_day_spinner.isActivated = value
+    category_spinner.isActivated = value
+    venue_spinner.isActivated = value
 
   }
 
   override fun onBackPressed() {
-    super.onBackPressed()
-    setResult(Activity.RESULT_CANCELED)
+    finish()
   }
 
-  private fun saveEventToFirebase() {
+  private fun saveEventToFirebase(eventExistsOnCloud: Boolean) {
 
-    done_fab.isActivated = false
-    val uploadingAVD =
-      getDrawable(R.drawable.avd_uploading) as AnimatedVectorDrawable
-    if (uploadingAVD != null) {
-      done_fab.setImageDrawable(uploadingAVD)
-      uploadingAVD.start()
+    if (eventExistsOnCloud) {
+      done_fab.isActivated = false
+      val uploadingAVD =
+        getDrawable(R.drawable.avd_uploading) as AnimatedVectorDrawable
+      if (uploadingAVD != null) {
+        done_fab.setImageDrawable(uploadingAVD)
+        uploadingAVD.start()
+      }
+      val eventColor = getEventColor(category_spinner.selectedItem.toString())
+      val documendId = (intent.extras.get("EVENT_EDIT") as Event).eventId
+      val documentReference = collectionReference.document(documendId)
+
+      val event = Event(
+          eventId = documentReference.id,
+          eventName = event_name.editText?.text.toString().trim(),
+          eventDescription = event_description.editText?.text.toString().trim(),
+          eventCategory = category_spinner.selectedItem.toString(),
+          eventColor = eventColor,
+          eventVenue = venue_spinner.selectedItem.toString(),
+          eventDate = event_day_spinner.selectedItem.toString(),
+          eventTime = select_time.text.toString().trim()
+      )
+
+      FirebaseFirestore.getInstance()
+          .runTransaction(object : Transaction.Function<Void> {
+
+            override fun apply(transaction: Transaction): Void? {
+
+              val snapShot = transaction.get(documentReference)
+
+              transaction.update(documentReference, "eventName", event.eventName)
+              transaction.update(documentReference, "eventDescription", event.eventDescription)
+              transaction.update(documentReference, "eventCategory", event.eventCategory)
+              transaction.update(documentReference, "eventColor", event.eventColor)
+              transaction.update(documentReference, "eventVenue", event.eventVenue)
+              transaction.update(documentReference, "eventDate", event.eventDate)
+              transaction.update(documentReference, "eventTime", event.eventTime)
+
+              return null
+
+            }
+
+          })
+          .addOnSuccessListener {
+            val complete =
+              getDrawable(R.drawable.avd_upload_complete) as AnimatedVectorDrawable?
+            if (complete != null) {
+              done_fab.setImageDrawable(complete)
+              complete.start()
+              done_fab.postDelayed(
+                  {
+                    startActivity(Intent(this@AddEventActivity, HomeActivity::class.java))
+                    finish()
+                  }, 1600
+              )
+              // 220 ms is length of R.drawable.avd_upload_complete
+            }
+
+          }
+          .addOnFailureListener {
+            Log.e("ADD_EVENT", it.message)
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
+                .show()
+            toggleFields(true)
+            done_fab.isActivated = true
+            val failed =
+              getDrawable(R.drawable.avd_upload_error) as AnimatedVectorDrawable?
+            if (failed != null) {
+              done_fab.setImageDrawable(failed)
+              failed.start()
+            }
+          }
+
     }
 
+    //If event is a new event
+    else {
+
+      done_fab.isActivated = false
+      val uploadingAVD =
+        getDrawable(R.drawable.avd_uploading) as AnimatedVectorDrawable
+      if (uploadingAVD != null) {
+        done_fab.setImageDrawable(uploadingAVD)
+        uploadingAVD.start()
+      }
+
+      val eventColor = getEventColor(category_spinner.selectedItem.toString())
+
+      val event = Event(
+          eventId = documentReference.id,
+          eventName = event_name.editText?.text.toString().trim(),
+          eventDescription = event_description.editText?.text.toString().trim(),
+          eventCategory = category_spinner.selectedItem.toString(),
+          eventColor = eventColor,
+          eventVenue = venue_spinner.selectedItem.toString(),
+          eventDate = event_day_spinner.selectedItem.toString(),
+          eventTime = select_time.text.toString().trim()
+      )
 
 
-    val eventColor = getEventColor(category_spinner.selectedItem.toString())
-
-    val event = Event(
-        eventId = documentReference.id,
-        eventName = event_name.editText?.text.toString().trim(),
-        eventDescription = event_description.editText?.text.toString().trim(),
-        eventCategory = category_spinner.selectedItem.toString(),
-        eventColor = eventColor,
-        eventVenue = venue_spinner.selectedItem.toString(),
-        eventDate = event_day_spinner.selectedItem.toString(),
-        eventTime = select_time.text.toString().trim()
-    )
 
 
-
-
-    documentReference.set(event)
-        .addOnCompleteListener {
-          val complete =
-            getDrawable(R.drawable.avd_upload_complete) as AnimatedVectorDrawable?
-          if (complete != null) {
-            done_fab.setImageDrawable(complete)
-            complete.start()
-            done_fab.postDelayed(
-            {
-
-              finish()
-            }, 1600
-        )
-            // 220 ms is length of R.drawable.avd_upload_complete
+      documentReference.set(event)
+          .addOnCompleteListener {
+            val complete =
+              getDrawable(R.drawable.avd_upload_complete) as AnimatedVectorDrawable?
+            if (complete != null) {
+              done_fab.setImageDrawable(complete)
+              complete.start()
+              done_fab.postDelayed(
+                  {
+                    startActivity(Intent(this@AddEventActivity, HomeActivity::class.java))
+                    finish()
+                  }, 1600
+              )
+              // 220 ms is length of R.drawable.avd_upload_complete
+            }
           }
-        }
-        .addOnFailureListener {
-          toggleFields(true)
-          done_fab.isActivated = true
-          val failed =
-                  getDrawable(R.drawable.avd_upload_error) as AnimatedVectorDrawable?
-                if (failed != null) {
-                  done_fab.setImageDrawable(failed)
-                  failed.start()
-                }
-              }
+          .addOnFailureListener {
+            Log.e("ADD_EVENT", it.message)
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
+                .show()
+            toggleFields(true)
+            done_fab.isActivated = true
+            val failed =
+              getDrawable(R.drawable.avd_upload_error) as AnimatedVectorDrawable?
+            if (failed != null) {
+              done_fab.setImageDrawable(failed)
+              failed.start()
+            }
+          }
 
-        }
+    }
+
+  }
 
   private fun getEventColor(category: String): String {
 
     var eventColor = ""
-    when{
-      category.equals("MAIN",false) -> {
-        eventColor = ContextCompat.getColor(this,R.color.dance).toString()
+    when {
+      category.equals("MAIN", false) -> {
+        eventColor = ContextCompat.getColor(this, R.color.dance)
+            .toString()
       }
-      category.equals("TEACHER",false) -> {
-        eventColor = ContextCompat.getColor(this,R.color.music).toString()
+      category.equals("TEACHER", false) -> {
+        eventColor = ContextCompat.getColor(this, R.color.music)
+            .toString()
       }
-      category.equals("FLAGSHIP",false) -> {
-        eventColor = ContextCompat.getColor(this,R.color.gaming).toString()
+      category.equals("FLAGSHIP", false) -> {
+        eventColor = ContextCompat.getColor(this, R.color.gaming)
+            .toString()
       }
-      category.equals("GENERAL",false) -> {
-        eventColor = ContextCompat.getColor(this,R.color.tech).toString()
+      category.equals("GENERAL", false) -> {
+        eventColor = ContextCompat.getColor(this, R.color.tech)
+            .toString()
       }
     }
 
@@ -302,19 +449,18 @@ class AddEventActivity : AppCompatActivity() {
 
   private fun showFab() {
 
-      done_fab.alpha = 0f
-      done_fab.scaleX = 0f
-      done_fab.scaleY = 0f
-      done_fab.translationY = done_fab.getHeight() / 2f;
-      done_fab.animate()
-          .alpha(1f)
-          .scaleX(1f)
-          .scaleY(1f)
-          .translationY(0f)
-          .setDuration(500L)
-          .setInterpolator(getLinearOutSlowInInterpolator(this))
-          .start()
-
+    done_fab.alpha = 0f
+    done_fab.scaleX = 0f
+    done_fab.scaleY = 0f
+    done_fab.translationY = done_fab.getHeight() / 2f;
+    done_fab.animate()
+        .alpha(1f)
+        .scaleX(1f)
+        .scaleY(1f)
+        .translationY(0f)
+        .setDuration(500L)
+        .setInterpolator(getLinearOutSlowInInterpolator(this))
+        .start()
 
   }
 }

@@ -6,15 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CED1A3"
-    android:fitsSystemWindows="true"
     android:transitionName="eventBackground"
     tools:context="io.execube.monotype.deimos.event_details.EventDetailsActivity"
     >
-
+  <View
+      android:id="@+id/details_reveal_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/light_status_bar_against_toolbar"
+      android:translationZ="7dp"
+      android:visibility="invisible"
+      />
   <LinearLayout
       android:id="@+id/linearLayout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:paddingTop="24dp"
       android:orientation="vertical"
       >
 
@@ -136,7 +143,7 @@
   </LinearLayout>
 
   <ImageButton
-      android:id="@+id/favourite_button"
+      android:id="@+id/fab"
       android:layout_width="56dp"
       android:layout_height="56dp"
       android:layout_gravity="bottom|end"
@@ -150,17 +157,5 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />
 
- <!-- <android.support.design.widget.FloatingActionButton
-      android:id="@+id/favourite_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="16dp"
-      android:layout_marginRight="16dp"
-      android:src="@drawable/ic_edit_black_24dp"
-      android:visibility="invisible"
-      app:backgroundTint="@color/white"
-      app:fabSize="normal"
-      app:layout_anchor="@id/linearLayout"
-      app:layout_anchorGravity="right|bottom"
-      />-->
+
 </android.support.design.widget.CoordinatorLayout>

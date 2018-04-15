@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -107,6 +108,7 @@ class HomeActivity : AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
+    Log.d("YO","HOME ONRESUME ")
     home_reveal_view.visibility = View.INVISIBLE
   }
 

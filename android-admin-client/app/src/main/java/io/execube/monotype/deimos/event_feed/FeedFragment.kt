@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.OnItemTouchListener
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -46,8 +47,14 @@ class FeedFragment : Fragment() {
     return view
   }
 
-  override fun onStart() {
-    super.onStart()
+  override fun onPause() {
+    super.onPause()
+    add_event.visibility = View.INVISIBLE
+  }
+
+  override fun onResume() {
+    super.onResume()
+    reveal_view.visibility = View.INVISIBLE
     ViewModelProviders.of(this)
         .get(FeedViewModel::class.java)
         .getEvents()
@@ -58,17 +65,6 @@ class FeedFragment : Fragment() {
             events_feed.scheduleLayoutAnimation()
           }
         })
-
-  }
-
-  override fun onPause() {
-    super.onPause()
-    add_event.visibility = View.INVISIBLE
-  }
-
-  override fun onResume() {
-    super.onResume()
-    reveal_view.visibility = View.INVISIBLE
     animateFab()
     add_event.setOnClickListener {
 
