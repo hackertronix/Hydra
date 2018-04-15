@@ -2,13 +2,11 @@ package io.execube.monotype.deimos.common
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -139,7 +137,9 @@ class HomeActivity : AppCompatActivity() {
     }
   }
 
-  fun showDetails(event: Event) {
+  fun showDetails(
+    event: Event
+  ) {
     val intent = Intent(this, EventDetailsActivity::class.java)
     intent.putExtra("EVENT",event as Serializable)
     startActivity(intent)
