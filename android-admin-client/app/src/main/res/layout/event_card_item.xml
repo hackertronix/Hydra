@@ -6,68 +6,74 @@
     app:cardCornerRadius="3dp"-->
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/event_card"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="4dp"
-    app:cardCornerRadius="0dp"
     app:cardBackgroundColor="@color/card_color_yellowish"
+    app:cardCornerRadius="0dp"
     >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
+
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="7dp"
+        android:ellipsize="end"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.01"
+        android:text="Kill Hitler"
+        android:textColor="#6C4F0C"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/event_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="14dp"
+        android:ellipsize="end"
+        android:letterSpacing="0.01"
+        android:maxLines="5"
+        android:text="Before we begin to give you additional information on this topic, take a moment to think about how much you already know of the underground corm "
+        android:textColor="#6C4F0C"
+        android:textSize="14sp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        >
 
-        <TextView
-            android:id="@+id/event_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="7dp"
-            android:fontFamily="monospace"
-            android:text="Kill Hitler"
-            android:ellipsize="end"
-            android:textColor="#6C4F0C"
-            android:letterSpacing="0.01"
-            android:textStyle="bold"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/event_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="14dp"
-            android:maxLines="5"
-            android:ellipsize="end"
-            android:letterSpacing="0.01"
-            android:text="Before we begin to give you additional information on this topic, take a moment to think about how much you already know of the underground corm "
-            android:textColor="#6C4F0C"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:id="@+id/event_category"
-                android:text="DANCE"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:letterSpacing="0.3"/>
-
-        </LinearLayout>
+      <TextView
+          android:id="@+id/event_category"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:letterSpacing="0.3"
+          android:text="DANCE"
+          android:textColor="@color/white"
+          android:textSize="12sp"
+          android:textStyle="bold"
+          android:transitionName="eventCategory"
+          />
 
     </LinearLayout>
+
+  </LinearLayout>
 </android.support.v7.widget.CardView>

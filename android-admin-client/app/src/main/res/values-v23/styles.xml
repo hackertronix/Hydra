@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@color/light_status_bar_against_toolbar</item>
-    </style>
 
-    <style name="BlueStatusbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="android:windowLightStatusBar">true</item>
+    <item name="android:statusBarColor">@color/light_status_bar_against_toolbar</item>
+
+    <item name="android:windowExitTransition">@transition/main_exit</item>
+    <item name="android:windowReenterTransition">@transition/main_reenter</item>
+  </style>
+
+  <style name="BlueStatusbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowTranslucentStatus">true</item>
+  </style>
 
   <style name="EventDetailsTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowTranslucentStatus">true</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowLightStatusBar">false</item>
+    <item name="android:windowAllowEnterTransitionOverlap">true</item>
   </style>
 
 </resources>
