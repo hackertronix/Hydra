@@ -36,17 +36,24 @@
           android:resource="@xml/file_paths"/>
     </provider>
 
-    <activity android:name=".add_event.AddEventActivity"
+    <activity
+        android:name=".add_event.AddEventActivity"
         android:configChanges="orientation"
         android:screenOrientation="portrait"/>
     <activity
         android:name=".event_details.EventDetailsActivity"
-        android:theme="@style/EventDetailsTheme"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait"
+        android:theme="@style/EventDetailsTheme"/>
+    <activity
+        android:name=".photo_feed.PhotoUploadActivity"
         android:configChanges="orientation"
         android:screenOrientation="portrait"/>
-    <activity android:name=".photo_feed.PhotoUploadActivity"
+    <activity android:name=".photo_details.PhotoDetailsActivity"
         android:configChanges="orientation"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/EventDetailsTheme">
+    </activity>
   </application>
 
 </manifest>

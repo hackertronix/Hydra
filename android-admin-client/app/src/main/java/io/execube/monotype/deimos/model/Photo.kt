@@ -1,5 +1,7 @@
 package io.execube.monotype.deimos.model
 
+import java.io.Serializable
+
 data class Photo(
 
   var photoId:String = "",
@@ -8,4 +10,4 @@ data class Photo(
   var uploaderAvatarUrl: String = "",
   var caption: String = "",
   var uploadedPhotoUrl: String = ""
-)
+):Serializable

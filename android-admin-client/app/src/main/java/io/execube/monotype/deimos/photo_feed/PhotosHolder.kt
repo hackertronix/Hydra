@@ -12,8 +12,12 @@ import kotlinx.android.synthetic.main.photo_entry_item.view.photo
 import kotlinx.android.synthetic.main.photo_entry_item.view.photo_caption
 import kotlinx.android.synthetic.main.photo_entry_item.view.user_image
 import kotlinx.android.synthetic.main.photo_entry_item.view.user_name
+import io.execube.monotype.deimos.photo_feed.PhotosHolder.ClickListener
 
-public class PhotosHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
+public class PhotosHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
   fun bind(
     model: Photo?,
     width: Int,
@@ -41,7 +45,24 @@ public class PhotosHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
           .error(R.color.error)
           .into(itemView.photo)
 
+      itemView.setOnClickListener {
+        mClickListener?.onItemClick(itemView,adapterPosition)
+      }
     }
+  }
+
+  private var mClickListener: PhotosHolder.ClickListener? = null
+
+  //Interface to send callbacks...
+  interface ClickListener {
+    fun onItemClick(
+      view: View,
+      position: Int
+    )
+  }
+
+  fun setOnClickListener(clickListener: PhotosHolder.ClickListener) {
+    mClickListener = clickListener
   }
 
 }

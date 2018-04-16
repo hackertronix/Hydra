@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -28,11 +30,13 @@ import com.google.firebase.firestore.Query;
 import io.execube.monotype.deimos.R;
 import io.execube.monotype.deimos.Utils.AnimUtilsKt;
 import io.execube.monotype.deimos.model.Photo;
+import io.execube.monotype.deimos.photo_details.PhotoDetailsActivity;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -55,6 +59,9 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
 
   private static final int RC_CAMERA_PERM = 123;
   private static final int RC_CAMERA_AND_STORAGE_PERM = 124;
+  private LinearLayoutManager linearLayoutManager;
+  private Parcelable mScrollPosition;
+  private int currentVisiblePosition =0;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -70,9 +77,11 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
     return view;
   }
 
+
+
   private void initRecyclerView() {
 
-    LinearLayoutManager linearLayoutManager =
+    linearLayoutManager =
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
     photosRecyclerview.setLayoutManager(linearLayoutManager);
   }
@@ -95,9 +104,20 @@ private void getDisplaySize(){
 
       @NonNull @Override
       public PhotosHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.photo_entry_item, parent, false);
-        return new PhotosHolder(view);
+        PhotosHolder viewHolder = new PhotosHolder(view);
+        viewHolder.setOnClickListener(new PhotosHolder.ClickListener() {
+          @Override public void onItemClick(@NotNull View view, int position) {
+            Photo photo = adapter.getItem(position);
+            Intent intent = new Intent(getContext(),PhotoDetailsActivity.class);
+            intent.putExtra("PHOTO",photo);
+            startActivity(intent);
+          }
+        });
+
+        return viewHolder;
       }
 
       @Override protected void onBindViewHolder(@NonNull PhotosHolder holder, int position,
@@ -116,18 +136,26 @@ private void getDisplaySize(){
 
   }
 
-  @Override public void onStop() {
-    super.onStop();
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    adapter.startListening();
+  }
+
+  @Override public void onDestroyView() {
+    super.onDestroyView();
     adapter.stopListening();
   }
 
-  @Override public void onStart() {
-    super.onStart();
-    adapter.startListening();
+  @Override public void onPause() {
+    super.onPause();
+
+    currentVisiblePosition = ((LinearLayoutManager)photosRecyclerview.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
   }
 
   @Override public void onResume() {
     super.onResume();
+    (photosRecyclerview.getLayoutManager()).scrollToPosition(currentVisiblePosition);
+    currentVisiblePosition = 0;
     animateFab();
     fab.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
