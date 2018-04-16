@@ -49,10 +49,15 @@
         android:name=".photo_feed.PhotoUploadActivity"
         android:configChanges="orientation"
         android:screenOrientation="portrait"/>
-    <activity android:name=".photo_details.PhotoDetailsActivity"
+    <activity
+        android:name=".photo_details.PhotoDetailsActivity"
         android:configChanges="orientation"
         android:screenOrientation="portrait"
         android:theme="@style/EventDetailsTheme">
+    </activity>
+    <activity android:name=".notifications.AddNotificationsActivity"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait">
     </activity>
   </application>
 

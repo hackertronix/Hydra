@@ -3,6 +3,8 @@ package io.execube.monotype.deimos.event_details
 import android.animation.Animator
 import android.animation.Animator.AnimatorListener
 import android.animation.AnimatorListenerAdapter
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -155,13 +157,28 @@ class EventDetailsActivity : AppCompatActivity() {
       }
 
       item?.itemId == R.id.delete_event ->{
-        deleteEvent()
+        askForConfirmation()
         return true
       }
       else -> return super.onOptionsItemSelected(item)
 
     }
 
+  }
+
+  private fun askForConfirmation() {
+    AlertDialog.Builder(this)
+        .setTitle("Delete")
+        .setCancelable(false)
+        .setMessage("Deleting this event will permanently remove it for all users. Are you sure?")
+        .setPositiveButton("YES"){
+          dialog, _ ->
+          deleteEvent()
+          dialog.dismiss()
+        }.setNegativeButton("NO"){
+          dialog, _ ->
+          dialog.dismiss()
+        }.show()
   }
 
   private fun deleteEvent() {

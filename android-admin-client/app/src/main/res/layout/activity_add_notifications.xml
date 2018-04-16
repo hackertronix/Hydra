@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".add_event.AddEventActivity"
+    >
+
+  <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBarLayout2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:elevation="4dp"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/activity_horizontal_margin"
+          android:layout_marginLeft="@dimen/activity_horizontal_margin"
+          android:layout_marginTop="@dimen/activity_horizontal_margin"
+          android:letterSpacing="0.29"
+          android:textColor="@color/gray"
+          android:text="CREATE NOTIFICATION"
+          android:textAllCaps="true"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          />
+    </android.support.v7.widget.Toolbar>
+  </android.support.design.widget.AppBarLayout>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+      <android.support.design.widget.TextInputLayout
+          android:id="@+id/notification_title_field"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="24dp"
+          android:focusedByDefault="false"
+          android:hint="Notification Title"
+          >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+      </android.support.design.widget.TextInputLayout>
+
+
+      <android.support.design.widget.TextInputLayout
+          android:id="@+id/notification_description_field"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:focusedByDefault="false"
+          android:hint="Notification Description"
+          >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+      </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+  </ScrollView>
+
+
+  <ImageButton
+      android:id="@+id/add_notification"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      android:layout_gravity="bottom|end"
+      android:layout_marginBottom="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginTop="8dp"
+      android:background="@drawable/fab"
+      android:elevation="6dp"
+      android:src="@drawable/ic_file_upload_black_24dp"
+      android:stateListAnimator="@animator/raise"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0"
+      />
+
+
+</android.support.constraint.ConstraintLayout>

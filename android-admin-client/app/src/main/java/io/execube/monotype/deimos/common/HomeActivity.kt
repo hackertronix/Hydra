@@ -19,6 +19,8 @@ import io.execube.monotype.deimos.add_event.AddEventActivity
 import io.execube.monotype.deimos.event_details.EventDetailsActivity
 import io.execube.monotype.deimos.event_feed.FeedFragment
 import io.execube.monotype.deimos.model.Event
+import io.execube.monotype.deimos.notifications.AddNotificationsActivity
+import io.execube.monotype.deimos.notifications.NotificationsFragment
 import io.execube.monotype.deimos.photo_feed.PhotosFragment
 import io.execube.monotype.deimos.sign_in.SignInActivity
 import kotlinx.android.synthetic.main.activity_home.home_reveal_view
@@ -48,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
 
       //TODO change them back to their respective fragments
         R.id.navigation_notification -> selectedFragment =
-            PhotosFragment()
+            NotificationsFragment()
       }
 
       val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -140,6 +142,11 @@ class HomeActivity : AppCompatActivity() {
         fragment = PhotosFragment()
         navigation.selectedItemId = R.id.navigation_photos
       }
+      "NOTIFICATION" ->{
+
+        fragment = NotificationsFragment()
+        navigation.selectedItemId = R.id.navigation_notification
+      }
       else ->{
 
         fragment = FeedFragment()
@@ -177,6 +184,35 @@ class HomeActivity : AppCompatActivity() {
     val intent = Intent(this, EventDetailsActivity::class.java)
     intent.putExtra("EVENT",event as Serializable)
     startActivity(intent)
+  }
+
+  fun doRevealForNotifications(
+    fabWidth: Float,
+    fabX: Float,
+    fabY: Float
+  ) {
+
+    home_reveal_view.visibility = View.VISIBLE
+    val cx = home_reveal_view.width
+    val cy = home_reveal_view.height
+
+    val startX: Int = (fabWidth + fabX).toInt()
+    val startY: Int = (fabWidth + fabY).toInt()
+
+    val finalRadius = Math.max(cx, cy) * 1.2f
+
+    val revealAnimator = ViewAnimationUtils.createCircularReveal(
+        home_reveal_view, startX, startY, fabWidth, finalRadius
+    )
+
+    revealAnimator.setDuration(450)
+        .addListener(object : AnimatorListenerAdapter() {
+          override fun onAnimationEnd(animation: Animator?) {
+            super.onAnimationEnd(animation)
+            startActivity(Intent(this@HomeActivity, AddNotificationsActivity::class.java))
+          }
+        })
+    revealAnimator.start()
   }
 
 }

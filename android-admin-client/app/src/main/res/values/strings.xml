@@ -49,4 +49,7 @@
   <string name="transition_name">event_scene_transition</string>
   <string name="returned_from_app_settings_to_activity"> Returned from app settings to MainActivity with the following permissions:
         \n\nCamera &amp; Stprage: %s</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
