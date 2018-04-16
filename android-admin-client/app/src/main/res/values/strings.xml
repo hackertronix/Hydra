@@ -38,12 +38,15 @@
   </string-array>
 
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="rationale_camera">This app needs access to your camera so you can take and post pictures.</string>
   <string name="logout">Logout</string>
   <string name="about">About</string>
 
+  <string name="file_provider_authority" translatable="false">io.execube.monotype.deimos.fileprovider</string>
   <string name="title_activity_fullscreen">FullscreenActivity</string>
   <string name="dummy_button">Dummy Button</string>
   <string name="dummy_content">DUMMY\nCONTENT</string>
   <string name="transition_name">event_scene_transition</string>
+  <string name="returned_from_app_settings_to_activity"> Returned from app settings to MainActivity with the following permissions:
+        \n\nCamera &amp; Stprage: %s</string>
 </resources>

@@ -16,9 +16,11 @@ class FirestoreLiveData : MutableLiveData<List<Event>>() {
 
           if (firebaseFirestoreException == null) {
             var events: ArrayList<Event> = ArrayList()
-            for (doc: DocumentSnapshot in querySnapshot) {
-              var event = doc.toObject(Event::class.java)
-              events.add(event)
+            if (querySnapshot != null) {
+              for (doc: DocumentSnapshot in querySnapshot) {
+                var event = doc.toObject(Event::class.java)
+                events.add(event!!)
+              }
             }
             value = events
           }

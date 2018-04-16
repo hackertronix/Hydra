@@ -17,9 +17,11 @@ class AdminListFireStore : MutableLiveData<List<Admin>>() {
 
           if (firebaseFirestoreException == null) {
             var admins: ArrayList<Admin> = ArrayList()
-            for (doc: DocumentSnapshot in querySnapshot) {
-              var admin = doc.toObject(Admin::class.java)
-              admins.add(admin)
+            if (querySnapshot != null) {
+              for (doc: DocumentSnapshot in querySnapshot) {
+                var admin = doc.toObject(Admin::class.java)
+                admins.add(admin!!)
+              }
             }
             value = admins
           }

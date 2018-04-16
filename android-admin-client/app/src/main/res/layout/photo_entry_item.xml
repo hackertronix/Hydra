@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="32dp"
+    >
+
+  <ImageView
+      android:id="@+id/user_image"
+      android:layout_width="42dp"
+      android:layout_height="42dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
+      android:background="@color/white"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <ImageView
+      android:id="@+id/photo"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/light_status_bar_against_toolbar"
+      android:layout_marginTop="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/user_image"
+      />
+
+  <TextView
+      android:id="@+id/user_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="16dp"
+      android:letterSpacing="0.3"
+      android:textColor="@color/black"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toEndOf="@+id/user_image"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="SWETA KUMARI"
+      />
+
+  <TextView
+      android:id="@+id/photo_caption"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:textColor="@color/black"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/photo"
+      tools:text="Lorem ipsum is all the rage #RandomShit"
+      />
+</android.support.constraint.ConstraintLayout>

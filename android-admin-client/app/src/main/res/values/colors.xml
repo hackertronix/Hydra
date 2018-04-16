@@ -13,7 +13,7 @@
   <color name="skin">#F7EDBA</color>
   <color name="fill_color">@color/white</color>
   <color name="dat_blue">#0D0D2F</color>
-  <color name="light_status_bar_against_toolbar">#ffe8eaea</color>
+  <color name="light_status_bar_against_toolbar">#ffe8ea</color>
   <color name="background">#ffffffff</color>
   <color name="gray">#808080</color>
   <color name="lightGray">#ccc</color>

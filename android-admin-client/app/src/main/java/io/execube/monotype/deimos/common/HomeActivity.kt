@@ -2,7 +2,6 @@ package io.execube.monotype.deimos.common
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -32,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_home)
+    checkForExtras()
     checkIfAuthed()
     setSupportActionBar(toolbar)
     animateToolbar()
@@ -43,10 +43,12 @@ class HomeActivity : AppCompatActivity() {
 
         R.id.navigation_feed -> selectedFragment = FeedFragment()
 
-        R.id.navigation_photos -> selectedFragment = PhotosFragment()
+        R.id.navigation_photos -> selectedFragment =
+            PhotosFragment()
 
       //TODO change them back to their respective fragments
-        R.id.navigation_notification -> selectedFragment = PhotosFragment()
+        R.id.navigation_notification -> selectedFragment =
+            PhotosFragment()
       }
 
       val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -57,6 +59,11 @@ class HomeActivity : AppCompatActivity() {
 
     navigation.setOnNavigationItemReselectedListener { return@setOnNavigationItemReselectedListener }
 
+  }
+
+  private fun checkForExtras() {
+    if(intent.hasExtra("SWAP"))
+      swapFragment(intent.getStringExtra("SWAP"))
   }
 
   private fun checkIfAuthed() {
@@ -119,13 +126,27 @@ class HomeActivity : AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
+    checkForExtras()
     Log.d("YO","HOME ONRESUME ")
     home_reveal_view.visibility = View.INVISIBLE
   }
 
-  private fun swapFragment() {
+  private fun swapFragment(tag:String ="FEED") {
 
-    val fragment = FeedFragment()
+    var fragment:Fragment
+    when(tag){
+      "PHOTOS" ->{
+
+        fragment = PhotosFragment()
+        navigation.selectedItemId = R.id.navigation_photos
+      }
+      else ->{
+
+        fragment = FeedFragment()
+        navigation.selectedItemId = R.id.navigation_feed
+      }
+    }
+
     val transaction = supportFragmentManager.beginTransaction()
     transaction.replace(R.id.frame_layout, fragment)
     transaction.commit()

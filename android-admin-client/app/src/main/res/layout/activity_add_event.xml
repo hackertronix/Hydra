@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".add_event.AddEventActivity"
     >
@@ -29,6 +30,7 @@
           android:layout_marginLeft="@dimen/activity_horizontal_margin"
           android:layout_marginTop="@dimen/activity_horizontal_margin"
           android:letterSpacing="0.29"
+          android:textColor="@color/gray"
           android:text="ADD EVENT"
           android:textAllCaps="true"
           android:textSize="18sp"

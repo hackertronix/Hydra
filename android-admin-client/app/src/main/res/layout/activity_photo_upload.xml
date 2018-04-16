@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    tools:context=".photo_feed.PhotoUploadActivity"
+    >
+
+  <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBarLayout2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:elevation="4dp"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/activity_horizontal_margin"
+          android:layout_marginLeft="@dimen/activity_horizontal_margin"
+          android:layout_marginTop="@dimen/activity_horizontal_margin"
+          android:letterSpacing="0.29"
+          android:text="UPLOAD PHOTO"
+          android:textColor="@color/gray"
+          android:textAllCaps="true"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          />
+    </android.support.v7.widget.Toolbar>
+  </android.support.design.widget.AppBarLayout>
+
+
+  <ImageView
+      android:id="@+id/photo_preview"
+      android:layout_width="match_parent"
+      android:layout_height="350dp"
+      android:background="@color/light_status_bar_against_toolbar"
+      android:scaleType="fitCenter"
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
+      />
+
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/photo_caption_field"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:hint="Photo Caption"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/photo_preview"
+      >
+    <EditText
+        android:id="@+id/editText"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+  </android.support.design.widget.TextInputLayout>
+
+  <ImageButton
+      android:id="@+id/upload_photo"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      android:layout_gravity="bottom|end"
+      android:layout_marginBottom="16dp"
+      android:layout_marginEnd="16dp"
+      android:background="@drawable/fab"
+      android:elevation="6dp"
+      android:src="@drawable/ic_file_upload_black_24dp"
+      android:stateListAnimator="@animator/raise"
+      android:visibility="visible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -61,7 +61,7 @@
       android:layout_marginTop="64dp"
       android:gravity="center_horizontal"
       android:padding="8dp"
-      android:src="@drawable/hero_image"
+      android:src="@drawable/hero_image_new"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
