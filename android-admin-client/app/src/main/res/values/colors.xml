@@ -39,5 +39,6 @@
   <color name="light_icon">#fff</color>
 
   <color name="black_overlay">#66000000</color>
+  <color name="card_text_red">#e00018</color>
 
 </resources>

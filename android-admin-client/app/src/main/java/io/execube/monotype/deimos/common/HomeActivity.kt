@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
+import io.execube.monotype.deimos.about.AboutActivity
 import io.execube.monotype.deimos.add_event.AddEventActivity
 import io.execube.monotype.deimos.event_details.EventDetailsActivity
 import io.execube.monotype.deimos.event_feed.FeedFragment
@@ -146,6 +147,10 @@ class HomeActivity : AppCompatActivity() {
             .signOut()
         startActivityForResult(Intent(this@HomeActivity, SignInActivity::class.java), 900)
         finish()
+      }
+      R.id.about ->{
+
+        startActivity(Intent(this@HomeActivity,AboutActivity::class.java))
       }
 
     }

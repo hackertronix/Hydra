@@ -120,10 +120,14 @@ class FeedAdapter(private var events: ArrayList<Event>) : RecyclerView.Adapter<F
               Color.blue(eventColor.toInt())
           )
 
-          itemView.event_card.setCardBackgroundColor(colorIntValue)
-          val textColor = generateDarkerColorShade(colorIntValue)
-          itemView.event_name.setTextColor(textColor)
-          itemView.event_description.setTextColor(textColor)
+          if(colorIntValue!=null)
+          {
+            itemView.event_card.setCardBackgroundColor(colorIntValue)
+            val textColor = generateDarkerColorShade(colorIntValue)
+            itemView.event_name.setTextColor(textColor)
+            itemView.event_description.setTextColor(textColor)
+          }
+
         }
       }
     }

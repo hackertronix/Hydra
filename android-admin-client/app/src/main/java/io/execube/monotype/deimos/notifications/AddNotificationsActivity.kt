@@ -17,11 +17,13 @@ import io.execube.monotype.deimos.model.NotificationData
 import kotlinx.android.synthetic.main.activity_add_notifications.notification_description_field
 import kotlinx.android.synthetic.main.activity_add_notifications.notification_title_field
 import kotlinx.android.synthetic.main.fragment_notifications.add_notification
+import java.util.concurrent.TimeUnit.MILLISECONDS
 import kotlin.properties.Delegates
 
 class AddNotificationsActivity : AppCompatActivity() {
 
-  var count =0
+  var titleCount =0
+  var descCount =0
 
   internal val NOTIFICATIONS = "Notifications"
   var documentReference = FirebaseFirestore.getInstance()
@@ -34,16 +36,19 @@ class AddNotificationsActivity : AppCompatActivity() {
     setContentView(R.layout.activity_add_notifications)
 
     RxTextView.textChanges(notification_title_field.editText as TextView)
+        .skipInitialValue()
         .subscribe { notificationTitle ->
           when {
             notificationTitle!!.trim().length in 1..3 || notificationTitle.isEmpty() -> {
               notification_title_field.error =
-                  "Notification title must be at least 4 characters long. You are ${4 - notificationTitle.length} characters short"
+                  "Notification title must be at least 4 characters long. You are ${5 - notificationTitle.length} characters short"
+              titleCount = 0
+              checkIfValid()
 
             }
             else -> {
               notification_title_field.isErrorEnabled = false
-              count += 1
+              titleCount =1
               checkIfValid()
             }
           }
@@ -51,17 +56,19 @@ class AddNotificationsActivity : AppCompatActivity() {
         }
 
     RxTextView.textChanges(notification_description_field.editText as TextView)
+        .skipInitialValue()
         .subscribe { notificationDescription ->
           when {
 
-            notificationDescription!!.trim()?.length in 1..20 || notificationDescription!!.isEmpty() -> {
+            notificationDescription.trim().length in 1..20 || notificationDescription.isEmpty() -> {
               notification_description_field.error =
-                  "Notification description must be at least 20 characters long. You are ${4 - notificationDescription.length} characters short"
-
+                  "Notification description must be at least 20 characters long. You are ${22 - notificationDescription.length} characters short"
+              descCount = 0
+              checkIfValid()
             }
             else -> {
               notification_description_field.isErrorEnabled = false
-              count += 1
+              descCount =1
               checkIfValid()
             }
           }
@@ -123,7 +130,7 @@ class AddNotificationsActivity : AppCompatActivity() {
   }
 
   private fun checkIfValid() {
-    if (count == 2) {
+    if (titleCount+descCount==2) {
       add_notification.visibility = View.VISIBLE
       add_notification.alpha = 0f
       add_notification.scaleX = 0f
@@ -137,6 +144,9 @@ class AddNotificationsActivity : AppCompatActivity() {
           .setDuration(500L)
           .setInterpolator(getLinearOutSlowInInterpolator(this))
           .start()
+    }
+    else{
+      add_notification.visibility = View.INVISIBLE
     }
 
   }

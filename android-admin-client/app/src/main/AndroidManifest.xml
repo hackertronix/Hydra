@@ -55,26 +55,34 @@
         android:screenOrientation="portrait"
         android:theme="@style/EventDetailsTheme">
     </activity>
-    <activity android:name=".notifications.AddNotificationsActivity"
+    <activity
+        android:name=".notifications.AddNotificationsActivity"
         android:configChanges="orientation"
         android:screenOrientation="portrait">
     </activity>
 
-    <service
-        android:name=".Utils.MyFirebaseMessagingService">
+    <service android:name=".Utils.MyFirebaseMessagingService">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
       </intent-filter>
     </service>
+
     <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"
-        android:resource="@drawable/ic_notification_bell" />
-    <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-         notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        android:resource="@drawable/ic_notification_bell"/>
+    <!--
+         Set color used with incoming notification messages. This is used when no color is set for the incoming
+         notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
     <meta-data
         android:name="com.google.firebase.messaging.default_notification_color"
-        android:resource="@color/colorAccent" />
+        android:resource="@color/colorAccent"/>
 
+    <activity android:name=".about.AboutActivity"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait"
+        android:theme="@style/EventDetailsTheme">
+    </activity>
   </application>
 
 </manifest>

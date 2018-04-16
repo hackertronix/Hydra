@@ -1,11 +1,14 @@
 package io.execube.monotype.deimos.photo_feed;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.preference.DialogPreference;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +19,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -55,13 +57,13 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
   private int width;
   private int height;
   private static final String[] CAMERA_AND_STORAGE =
-      { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+      { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
   private static final int RC_CAMERA_PERM = 123;
   private static final int RC_CAMERA_AND_STORAGE_PERM = 124;
   private LinearLayoutManager linearLayoutManager;
   private Parcelable mScrollPosition;
-  private int currentVisiblePosition =0;
+  private int currentVisiblePosition = 0;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -77,8 +79,6 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
     return view;
   }
 
-
-
   private void initRecyclerView() {
 
     linearLayoutManager =
@@ -86,13 +86,13 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
     photosRecyclerview.setLayoutManager(linearLayoutManager);
   }
 
+  private void getDisplaySize() {
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+    height = displayMetrics.heightPixels;
+    width = displayMetrics.widthPixels;
+  }
 
-private void getDisplaySize(){
-  DisplayMetrics displayMetrics = new DisplayMetrics();
-  getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-   height = displayMetrics.heightPixels;
-   width = displayMetrics.widthPixels;
-}
   private void getPhotos() {
 
     Query query = db.collection("Photos");
@@ -111,8 +111,8 @@ private void getDisplaySize(){
         viewHolder.setOnClickListener(new PhotosHolder.ClickListener() {
           @Override public void onItemClick(@NotNull View view, int position) {
             Photo photo = adapter.getItem(position);
-            Intent intent = new Intent(getContext(),PhotoDetailsActivity.class);
-            intent.putExtra("PHOTO",photo);
+            Intent intent = new Intent(getContext(), PhotoDetailsActivity.class);
+            intent.putExtra("PHOTO", photo);
             startActivity(intent);
           }
         });
@@ -122,18 +122,17 @@ private void getDisplaySize(){
 
       @Override protected void onBindViewHolder(@NonNull PhotosHolder holder, int position,
           @NonNull Photo model) {
-        holder.bind(model,width,height);
+        holder.bind(model, width, height);
       }
 
       @Override public void onError(@NonNull FirebaseFirestoreException e) {
         super.onError(e);
-        Log.e("Error",e.getMessage());
+        Log.e("Error", e.getMessage());
       }
     };
 
-        adapter.notifyDataSetChanged();
-        photosRecyclerview.setAdapter( adapter);
-
+    adapter.notifyDataSetChanged();
+    photosRecyclerview.setAdapter(adapter);
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -149,7 +148,8 @@ private void getDisplaySize(){
   @Override public void onPause() {
     super.onPause();
 
-    currentVisiblePosition = ((LinearLayoutManager)photosRecyclerview.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+    currentVisiblePosition =
+        ((LinearLayoutManager) photosRecyclerview.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
   }
 
   @Override public void onResume() {
@@ -160,7 +160,20 @@ private void getDisplaySize(){
     fab.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         //dispatchTakePictureIntent();
-        cameraTask();
+        if (System.currentTimeMillis() < 1524335400000L) {
+
+          cameraTask();
+        }else{
+         new  AlertDialog.Builder(PhotosFragment.this.requireContext())
+             .setTitle("Feature disabled")
+             .setCancelable(false)
+             .setMessage("Pantheon 2018 is now officially over and to avoid abuse, photo uploading has been disabled")
+             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+               @Override public void onClick(DialogInterface dialog, int which) {
+                 dialog.dismiss();
+               }
+             }).show();
+        }
       }
     });
   }
@@ -244,9 +257,10 @@ private void getDisplaySize(){
       String no = "No";
 
       // Do something after user returned from app settings screen, like showing a Toast.
-     Toast.makeText(
-                   this.requireContext(), getString(R.string.returned_from_app_settings_to_activity,hasCameraAndStoragePermission()? yes:no), Toast.LENGTH_LONG)
-                   .show();
+      Toast.makeText(
+          this.requireContext(), getString(R.string.returned_from_app_settings_to_activity,
+              hasCameraAndStoragePermission() ? yes : no), Toast.LENGTH_LONG)
+          .show();
     }
   }
 
@@ -256,7 +270,7 @@ private void getDisplaySize(){
     fab.setAlpha(0f);
     fab.setScaleX(0f);
     fab.setScaleY(0f);
-    fab.setTranslationY( fab.getHeight() / 2f);
+    fab.setTranslationY(fab.getHeight() / 2f);
     fab.animate()
         .alpha(1f)
         .scaleX(1f)

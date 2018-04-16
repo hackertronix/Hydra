@@ -9,7 +9,7 @@
       app:showAsAction="never"/>
 
   <item
-      android:id="@+id/menu_dribbble_login"
+      android:id="@+id/about"
       android:title="@string/about"
       app:showAsAction="never" />
 
