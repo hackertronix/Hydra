@@ -12,17 +12,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import io.execube.monotype.deimos.R
-import io.execube.monotype.deimos.R.anim
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import io.execube.monotype.deimos.common.HomeActivity
 import io.execube.monotype.deimos.model.NotificationData
 import kotlinx.android.synthetic.main.fragment_notifications.add_notification
-import kotlinx.android.synthetic.main.fragment_notifications.notifications_feed
+import kotlinx.android.synthetic.main.fragment_photos.photos_recycler_view
 
 class NotificationsFragment : Fragment() {
 
-  lateinit var adapter:NotificationsAdapter
+  lateinit var adapter: NotificationsAdapter
   lateinit var notifications: ArrayList<NotificationData>
+
+  private lateinit var feed: RecyclerView
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -32,11 +33,15 @@ class NotificationsFragment : Fragment() {
 
     notifications = ArrayList()
     val view = inflater.inflate(R.layout.fragment_notifications, container, false)
-    val feed = view.findViewById(R.id.notifications_feed) as RecyclerView
-    feed.layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.VERTICAL,false)
-    feed.itemAnimator = DefaultItemAnimator()
+    feed = view.findViewById(R.id.notifications_feed) as RecyclerView
+
+    val controller =
+        AnimationUtils.loadLayoutAnimation(context, R.anim.rv_fall_down)
+
+    feed.setLayoutAnimation(controller);
+    feed.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
     adapter = NotificationsAdapter(notifications)
-    feed.adapter =adapter
+    feed.adapter = adapter
     return view
   }
 
@@ -48,15 +53,16 @@ class NotificationsFragment : Fragment() {
         .observe(this, Observer { data ->
           if (data != null) {
             adapter.setData(data as ArrayList<NotificationData>)
-
+            feed.scheduleLayoutAnimation()
           }
         })
     animateFab()
     add_notification.setOnClickListener {
 
-      (this.context as HomeActivity).doRevealForNotifications(add_notification.width/2.toFloat(),add_notification.x,add_notification.y)
+      (this.context as HomeActivity).doRevealForNotifications(
+          add_notification.width / 2.toFloat(), add_notification.x, add_notification.y
+      )
     }
-
 
   }
 

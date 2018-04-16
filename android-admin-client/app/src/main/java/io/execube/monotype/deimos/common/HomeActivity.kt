@@ -2,9 +2,16 @@ package io.execube.monotype.deimos.common
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
@@ -13,6 +20,7 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import io.execube.monotype.deimos.R
 import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import io.execube.monotype.deimos.add_event.AddEventActivity
@@ -33,11 +41,26 @@ class HomeActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_home)
+    FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications")
     checkForExtras()
     checkIfAuthed()
     setSupportActionBar(toolbar)
     animateToolbar()
     swapFragment()
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      // Create channel to show notifications.
+      val channelId = getString(R.string.default_notification_channel_id)
+      val channelName = getString(R.string.default_notification_channel_name)
+      val notificationManager = getSystemService(NotificationManager::class.java)
+      notificationManager!!.createNotificationChannel(
+          NotificationChannel(
+              channelId,
+              channelName, NotificationManager.IMPORTANCE_LOW
+          )
+      )
+    }
 
     navigation.setOnNavigationItemSelectedListener { item ->
       var selectedFragment: Fragment? = null
@@ -62,6 +85,10 @@ class HomeActivity : AppCompatActivity() {
     navigation.setOnNavigationItemReselectedListener { return@setOnNavigationItemReselectedListener }
 
   }
+
+
+
+
 
   private fun checkForExtras() {
     if(intent.hasExtra("SWAP"))
@@ -128,6 +155,7 @@ class HomeActivity : AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
+    //FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications")
     checkForExtras()
     Log.d("YO","HOME ONRESUME ")
     home_reveal_view.visibility = View.INVISIBLE
@@ -215,4 +243,9 @@ class HomeActivity : AppCompatActivity() {
     revealAnimator.start()
   }
 
+  override fun onStop() {
+    super.onStop()
+   // FirebaseMessaging.getInstance().unsubscribeFromTopic("pushNotifications")
+
+  }
 }
