@@ -114,14 +114,15 @@ class FeedAdapter(private var events: ArrayList<Event>) : RecyclerView.Adapter<F
 
     fun setCardColor(eventColor: String) {
 
+      if(!eventColor.isNullOrEmpty())
+      {
           val colorIntValue = Color.argb(Color.alpha(eventColor.toInt()),
               Color.red(eventColor.toInt()),
               Color.green(eventColor.toInt()),
               Color.blue(eventColor.toInt())
           )
 
-          if(colorIntValue!=null)
-          {
+
             itemView.event_card.setCardBackgroundColor(colorIntValue)
             val textColor = generateDarkerColorShade(colorIntValue)
             itemView.event_name.setTextColor(textColor)

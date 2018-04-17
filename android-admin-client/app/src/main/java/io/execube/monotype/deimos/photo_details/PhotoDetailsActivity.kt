@@ -92,9 +92,9 @@ class PhotoDetailsActivity : AppCompatActivity() {
         }
         .setNegativeButton("NO") { dialog, _ ->
           dialog.dismiss()
-        }.show()
+        }
+        .show()
   }
-
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when {

@@ -56,12 +56,12 @@
       />
 
   <ImageView
-      android:layout_width="320dp"
-      android:layout_height="206dp"
+      android:layout_width="match_parent"
+      android:layout_height="280dp"
       android:layout_marginTop="64dp"
       android:gravity="center_horizontal"
       android:padding="8dp"
-      android:src="@drawable/hero_image_new"
+      android:src="@drawable/hero_image_admin"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"

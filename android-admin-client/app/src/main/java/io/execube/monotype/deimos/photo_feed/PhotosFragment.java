@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
-import android.preference.DialogPreference;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +16,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -127,7 +126,7 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
 
       @Override public void onError(@NonNull FirebaseFirestoreException e) {
         super.onError(e);
-        Log.e("Error", e.getMessage());
+        Timber.e(e.getMessage());
       }
     };
 
@@ -163,16 +162,17 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
         if (System.currentTimeMillis() < 1524335400000L) {
 
           cameraTask();
-        }else{
-         new  AlertDialog.Builder(PhotosFragment.this.requireContext())
-             .setTitle("Feature disabled")
-             .setCancelable(false)
-             .setMessage("Pantheon 2018 is now officially over and to avoid abuse, photo uploading has been disabled")
-             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-               @Override public void onClick(DialogInterface dialog, int which) {
-                 dialog.dismiss();
-               }
-             }).show();
+        } else {
+          new AlertDialog.Builder(PhotosFragment.this.requireContext())
+              .setTitle("Feature disabled")
+              .setCancelable(false)
+              .setMessage(
+                  "Pantheon 2018 is now officially over and to avoid abuse, photo uploading has been disabled")
+              .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override public void onClick(DialogInterface dialog, int which) {
+                  dialog.dismiss();
+                }
+              }).show();
         }
       }
     });
@@ -228,7 +228,7 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
         photoFile = createImageFile();
       } catch (IOException ex) {
         // Error occurred while creating the File
-        Log.e("Error", ex.getMessage());
+        Timber.e(ex.getMessage());
       }
       // Continue only if the File was successfully created
       if (photoFile != null) {
@@ -282,13 +282,13 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
   }
 
   @Override public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-    Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
+    Timber.d("onPermissionsGranted:" + requestCode + ":" + perms.size());
     dispatchTakePictureIntent();
   }
 
   @Override public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
-    Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
+    Timber.d("onPermissionsDenied:" + requestCode + ":" + perms.size());
 
     // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
     // This will display a dialog directing them to enable the permission in app settings.
@@ -298,10 +298,10 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
   }
 
   @Override public void onRationaleAccepted(int requestCode) {
-    Log.d(TAG, "onRationaleAccepted:" + requestCode);
+    Timber.d("onRationaleAccepted:" + requestCode);
   }
 
   @Override public void onRationaleDenied(int requestCode) {
-    Log.d(TAG, "onRationaleDenied:" + requestCode);
+    Timber.d("onRationaleDenied:" + requestCode);
   }
 }

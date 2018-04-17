@@ -68,6 +68,10 @@
     </service>
 
     <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="f61375f6d805385167adaed63d0eb0ef1f66b7dd" />
+
+    <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"
         android:resource="@drawable/ic_notification_bell"/>
     <!--

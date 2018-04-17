@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.support.graphics.drawable.Animatable2Compat
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.WindowManager
@@ -35,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_main.header3
 import kotlinx.android.synthetic.main.activity_main.reveal_view
 import kotlinx.android.synthetic.main.activity_main.sign_in_button
 import kotlinx.android.synthetic.main.activity_main.sign_in_progressbar
+import timber.log.Timber
 
 class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
   private var googleApiClient: GoogleApiClient? = null
@@ -160,7 +160,7 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
   private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
 
-    Log.d(TAG, "firebaseAuthWithGoogle:" + account?.id)
+    Timber.d("firebaseAuthWithGoogle:" + account?.id)
 
     val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
     mAuth?.signInWithCredential(credential)
@@ -169,19 +169,19 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
             val currentUser = Admin(task.result.user.email.toString())
             // Sign in success, update UI with the signed-in user's information
-            Log.d(TAG, "signInWithCredential:success")
+            Timber.d("signInWithCredential:success")
             signinViewModel.getEvents()
                 .observe(this, Observer { adminsList ->
                   if (adminsList != null && adminsList.contains(currentUser)) {
                     doReveal()
                   } else {
-                   showError()
+                    showError()
                   }
                 })
 
           } else {
             // If sign in fails, display a message to the user.
-            Log.w(TAG, "signInWithCredential:failure", task.exception)
+            Timber.w("signInWithCredential:failure", task.exception)
             Toast.makeText(
                 this, "Authentication failed.",
                 Toast.LENGTH_SHORT
@@ -201,8 +201,9 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
             "This app is only for the event management team. You are unauthorized to log in"
         )
         .setPositiveButton("OK", { dialog, _ ->
-          FirebaseAuth.getInstance().signOut()
-          sign_in_progressbar.visibility =View.INVISIBLE
+          FirebaseAuth.getInstance()
+              .signOut()
+          sign_in_progressbar.visibility = View.INVISIBLE
           sign_in_button.visibility = View.VISIBLE
           dialog.dismiss()
         })
@@ -230,7 +231,7 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
         reveal_view, startX, startY, progressBarWidth.toFloat(), finalRadius
     )
 
-    revealAnimator.setDuration(550)
+    revealAnimator.setDuration(350)
         .addListener(object : AnimatorListenerAdapter() {
           override fun onAnimationEnd(animation: Animator?) {
             super.onAnimationEnd(animation)
@@ -243,6 +244,6 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
   override fun onConnectionFailed(p0: ConnectionResult) {
 
-    Log.d(TAG, "Signin Failed")
+    Timber.d("Signin Failed")
   }
 }

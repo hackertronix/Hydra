@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -17,13 +16,12 @@ import io.execube.monotype.deimos.model.NotificationData
 import kotlinx.android.synthetic.main.activity_add_notifications.notification_description_field
 import kotlinx.android.synthetic.main.activity_add_notifications.notification_title_field
 import kotlinx.android.synthetic.main.fragment_notifications.add_notification
-import java.util.concurrent.TimeUnit.MILLISECONDS
-import kotlin.properties.Delegates
+import timber.log.Timber
 
 class AddNotificationsActivity : AppCompatActivity() {
 
-  var titleCount =0
-  var descCount =0
+  var titleCount = 0
+  var descCount = 0
 
   internal val NOTIFICATIONS = "Notifications"
   var documentReference = FirebaseFirestore.getInstance()
@@ -48,7 +46,7 @@ class AddNotificationsActivity : AppCompatActivity() {
             }
             else -> {
               notification_title_field.isErrorEnabled = false
-              titleCount =1
+              titleCount = 1
               checkIfValid()
             }
           }
@@ -68,7 +66,7 @@ class AddNotificationsActivity : AppCompatActivity() {
             }
             else -> {
               notification_description_field.isErrorEnabled = false
-              descCount =1
+              descCount = 1
               checkIfValid()
             }
           }
@@ -81,7 +79,6 @@ class AddNotificationsActivity : AppCompatActivity() {
       }
     }
   }
-
 
   private fun saveToFireBase() {
 
@@ -96,7 +93,8 @@ class AddNotificationsActivity : AppCompatActivity() {
     val description = notification_description_field.editText?.text.toString()
 
     val notification = NotificationData(title, description)
-    notification.timeOfGeneration = System.currentTimeMillis().toString()
+    notification.timeOfGeneration = System.currentTimeMillis()
+        .toString()
     documentReference.set(notification)
         .addOnSuccessListener {
           val complete = getDrawable(R.drawable.avd_upload_complete) as AnimatedVectorDrawable?
@@ -115,7 +113,7 @@ class AddNotificationsActivity : AppCompatActivity() {
 
         }
         .addOnFailureListener {
-          Log.e("ADD_EVENT", it.message)
+          Timber.e(it.message)
           Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
               .show()
           add_notification.isActivated = true
@@ -130,7 +128,7 @@ class AddNotificationsActivity : AppCompatActivity() {
   }
 
   private fun checkIfValid() {
-    if (titleCount+descCount==2) {
+    if (titleCount + descCount == 2) {
       add_notification.visibility = View.VISIBLE
       add_notification.alpha = 0f
       add_notification.scaleX = 0f
@@ -144,8 +142,7 @@ class AddNotificationsActivity : AppCompatActivity() {
           .setDuration(500L)
           .setInterpolator(getLinearOutSlowInInterpolator(this))
           .start()
-    }
-    else{
+    } else {
       add_notification.visibility = View.INVISIBLE
     }
 

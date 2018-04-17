@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import io.execube.monotype.deimos.Utils.getLinearOutSlowInInterpolator
 import io.execube.monotype.deimos.common.HomeActivity
 import io.execube.monotype.deimos.model.NotificationData
 import kotlinx.android.synthetic.main.fragment_notifications.add_notification
-import kotlinx.android.synthetic.main.fragment_photos.photos_recycler_view
 
 class NotificationsFragment : Fragment() {
 
@@ -36,7 +34,7 @@ class NotificationsFragment : Fragment() {
     feed = view.findViewById(R.id.notifications_feed) as RecyclerView
 
     val controller =
-        AnimationUtils.loadLayoutAnimation(context, R.anim.rv_fall_down)
+      AnimationUtils.loadLayoutAnimation(context, R.anim.rv_fall_down)
 
     feed.setLayoutAnimation(controller);
     feed.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)

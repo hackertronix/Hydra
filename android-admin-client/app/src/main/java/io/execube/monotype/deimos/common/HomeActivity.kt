@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -162,7 +161,6 @@ class HomeActivity : AppCompatActivity() {
     super.onResume()
     //FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications")
     checkForExtras()
-    Log.d("YO","HOME ONRESUME ")
     home_reveal_view.visibility = View.INVISIBLE
   }
 

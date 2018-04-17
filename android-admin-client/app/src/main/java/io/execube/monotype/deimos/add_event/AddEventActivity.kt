@@ -7,7 +7,6 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
@@ -33,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_add_event.event_description
 import kotlinx.android.synthetic.main.activity_add_event.event_name
 import kotlinx.android.synthetic.main.activity_add_event.select_time
 import kotlinx.android.synthetic.main.activity_add_event.venue_spinner
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -341,7 +341,7 @@ class AddEventActivity : AppCompatActivity() {
 
           }
           .addOnFailureListener {
-            Log.e("ADD_EVENT", it.message)
+            Timber.e( it.message)
             Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
                 .show()
             toggleFields(true)
@@ -400,7 +400,7 @@ class AddEventActivity : AppCompatActivity() {
             }
           }
           .addOnFailureListener {
-            Log.e("ADD_EVENT", it.message)
+            Timber.e(it.message)
             Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
                 .show()
             toggleFields(true)

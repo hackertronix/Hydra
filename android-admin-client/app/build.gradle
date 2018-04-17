@@ -2,8 +2,23 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android-extensions'
 
+
+buildscript {
+  repositories {
+    maven { url 'https://maven.fabric.io/public' }
+  }
+
+  dependencies {
+    classpath 'io.fabric.tools:gradle:1.+'
+
+  }
+}
+repositories {
+  maven { url 'https://maven.fabric.io/public' }
+}
 android {
   compileSdkVersion 27
   defaultConfig {
@@ -51,6 +66,9 @@ dependencies {
   //Timber logger
   implementation 'com.jakewharton.timber:timber:4.6.1'
 
+  compile('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+    transitive = true
+  }
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
   implementation 'com.facebook.shimmer:shimmer:0.1.0'
