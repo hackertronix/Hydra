@@ -159,21 +159,21 @@ public class PhotosFragment extends Fragment implements EasyPermissions.Permissi
     fab.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         //dispatchTakePictureIntent();
-        if (System.currentTimeMillis() < 1524335400000L) {
+        //if (System.currentTimeMillis() < 1524335400000L) {
 
           cameraTask();
-        } else {
-          new AlertDialog.Builder(PhotosFragment.this.requireContext())
-              .setTitle("Feature disabled")
-              .setCancelable(false)
-              .setMessage(
-                  "Pantheon 2018 is now officially over and to avoid abuse, photo uploading has been disabled")
-              .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override public void onClick(DialogInterface dialog, int which) {
-                  dialog.dismiss();
-                }
-              }).show();
-        }
+        //} else {
+        //  new AlertDialog.Builder(PhotosFragment.this.requireContext())
+        //      .setTitle("Feature disabled")
+        //      .setCancelable(false)
+        //      .setMessage(
+        //          "Pantheon 2018 is now officially over and to avoid abuse, photo uploading has been disabled")
+        //      .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        //        @Override public void onClick(DialogInterface dialog, int which) {
+        //          dialog.dismiss();
+        //        }
+        //      }).show();
+        //}
       }
     });
   }

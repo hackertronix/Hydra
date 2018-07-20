@@ -96,7 +96,7 @@ class PhotoUploadActivity : AppCompatActivity() {
 
     uploadTask.addOnSuccessListener {
 
-      uri = it.downloadUrl
+      uri = it.uploadSessionUri
       photo.uploadedPhotoUrl = uri.toString()
       savePhotoDataToFirebase(photo)
       /*Picasso.with(this)
